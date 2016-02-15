@@ -27,7 +27,6 @@ class Experiment
 
 
   shuffleTrials: ->
-    console.log @config.trialDist
     trialCounts = (td * @config.blockSize for td in @config.trialDist)
     console.log @config.condition
     console.log trialCounts
@@ -161,7 +160,7 @@ class Experiment
   blockFeedback: ->
     r.clearScreen()
     # otherwise do feedback and next trial
-    feedbackText = "Done with this block! \n Your bonus for this block was #{ExtMath.round(@state.blockBonus, 2)}/#{@config.correctPoints*@config.blockSize} points!\n"
+    feedbackText = "Done with this block! \n You earned #{ExtMath.round(@state.blockBonus, 2)} out of #{@config.correctPoints*@config.blockSize} bonus points!\n"
     r.renderText feedbackText
     @state.blockBonus = 0
     @updateBonusAndSave()
@@ -236,10 +235,11 @@ class Experiment
       when 8
         r.clearScreen()
         r.renderText "Congratulations! You have learned the rules.\n
-                      You will now see up to #{@config.nTrials} more trials in blocks of #{@config.blockSize}.\n
-                      You will get #{@config.correctPoints} points for a correct repsonse.\n
-                      You have up to #{@config.deadline} seconds to respond on each trial.\n
+                      You will now see #{@config.nTrials} more trials in blocks of #{@config.blockSize}.\n
+                      You will get #{@config.correctPoints} points for a correct response.\n
                       You will receive $1 for each #{@config.pointsPerDollar} points.\n
+                      You have up to #{@config.deadline} seconds to respond on each trial,\n
+                      but the faster you go, the faster you will finish the HIT.\n
                       The HIT will end when you have done #{@config.nTrials} trials.\n
                       \n
                       \n", "black", 0, -260
@@ -310,7 +310,7 @@ class Experiment
 class LettersExperiment extends Experiment  
   stimsName : "letters"
   # @stimuli = ["A","X","B","Y"] # eventually this should be the whole alphabet
-  stimuli: ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
+  stimuli: ["B","C","D","F","G","H","J","K","L","M","N","P","Q","R","S","T","V","W","X","Y","Z"]
 
   renderStimInstruct : (stim, colour="black", xoffset=0, yoffset=0)->
     r.renderText stim, colour, xoffset, yoffset
