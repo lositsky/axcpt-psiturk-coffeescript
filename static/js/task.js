@@ -416,7 +416,6 @@
 
     Experiment.prototype.shuffleTrials = function() {
       var i, k, l, len, ref, tc, td, trialCounts;
-      console.log(this.config.trialDist);
       trialCounts = (function() {
         var k, len, ref, results;
         ref = this.config.trialDist;
@@ -428,7 +427,6 @@
         return results;
       }).call(this);
       console.log(this.config.condition);
-      console.log(trialCounts);
       this.trialOrderBlock = [];
       for (i = k = 0, len = trialCounts.length; k < len; i = ++k) {
         tc = trialCounts[i];
@@ -471,7 +469,6 @@
 
     Experiment.prototype.doNext = function() {
       r.clearScreen();
-      console.log(this.config.trialDist);
       switch (this.state.phase) {
         case "initialInstructions":
           this.state.instructionSlide = 0;
@@ -580,7 +577,7 @@
     Experiment.prototype.blockFeedback = function() {
       var feedbackText;
       r.clearScreen();
-      feedbackText = "Done with this block! \n Your bonus for this block was " + (ExtMath.round(this.state.blockBonus, 2)) + "/" + (this.config.correctPoints * this.config.blockSize) + " points!\n";
+      feedbackText = "Done with this block! \n You earned " + (ExtMath.round(this.state.blockBonus, 2)) + " out of " + (this.config.correctPoints * this.config.blockSize) + " bonus points!\n";
       r.renderText(feedbackText);
       this.state.blockBonus = 0;
       this.updateBonusAndSave();
@@ -671,7 +668,7 @@
           return this.testTrialTypes[this.testTrialOrder[0]].run();
         case 8:
           r.clearScreen();
-          r.renderText("Congratulations! You have learned the rules.\n You will now see up to " + this.config.nTrials + " more trials in blocks of " + this.config.blockSize + ".\n You will get " + this.config.correctPoints + " points for a correct repsonse.\n You have up to " + this.config.deadline + " seconds to respond on each trial.\n You will receive $1 for each " + this.config.pointsPerDollar + " points.\n The HIT will end when you have done " + this.config.nTrials + " trials.\n \n \n", "black", 0, -260);
+          r.renderText("Congratulations! You have learned the rules.\n You will now see " + this.config.nTrials + " more trials in blocks of " + this.config.blockSize + ".\n You will get " + this.config.correctPoints + " points for a correct response.\n You will receive $1 for each " + this.config.pointsPerDollar + " points.\n You have up to " + this.config.deadline + " seconds to respond on each trial,\n but the faster you go, the faster you will finish the HIT.\n The HIT will end when you have done " + this.config.nTrials + " trials.\n \n \n", "black", 0, -260);
           setTimeout((function() {
             return r.renderText("Press the spacebar to continue.", "black", 0, 100);
           }), this.config.spacebarTimeout);
@@ -778,7 +775,7 @@
 
     LettersExperiment.prototype.stimsName = "letters";
 
-    LettersExperiment.prototype.stimuli = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+    LettersExperiment.prototype.stimuli = ["B", "C", "D", "F", "G", "H", "J", "K", "L", "M", "N", "P", "Q", "R", "S", "T", "V", "W", "X", "Y", "Z"];
 
     LettersExperiment.prototype.renderStimInstruct = function(stim, colour, xoffset, yoffset) {
       if (colour == null) {
