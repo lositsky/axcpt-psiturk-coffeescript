@@ -242,10 +242,10 @@
       r.clearScreen();
       if (this.acc === 1) {
         this.renderFunc(this.targetItem, "green");
-        r.renderText("RT: " + (ExtMath.round(this.rt, 2)) + "ms!", "green", 0, 100);
+        r.renderText("Speed: " + (ExtMath.round(this.rt, 0)) + " ms", "green", 0, 100);
       } else {
         this.renderFunc(this.targetItem, "red");
-        r.renderText("RT: " + (ExtMath.round(this.rt, 2)) + "ms!", "red", 0, 100);
+        r.renderText("Speed: " + (ExtMath.round(this.rt, 0)) + " ms", "red", 0, 100);
       }
       return setTimeout((function() {
         return e.doNext();
@@ -314,14 +314,9 @@
       } else {
         r.renderText("Incorrect!", "red");
       }
-      setTimeout((function() {
-        return r.renderText("Press the spacebar to continue.", "black", 0, 180);
-      }), e.config.spacebarTimeout);
-      return setTimeout(((function(_this) {
-        return function() {
-          return addEventListener("keydown", _this.handleSpacebar);
-        };
-      })(this)), e.config.spacebarTimeout);
+      return setTimeout((function() {
+        return e.doNext();
+      }), e.config.feedbackTimePractice);
     };
 
     return PracticeTrial;
@@ -357,11 +352,13 @@
       r.clearScreen();
       if (this.acc === 1) {
         e.state.currentStreak = e.state.currentStreak + 1;
-        r.renderText("Correct (Streak: " + e.state.currentStreak + ")! (" + (e.config.nTestAttempts - e.state.testId - 1) + " attempts left)\n");
+        r.renderText("Correct!", "green", 0, -100);
+        r.renderText("\nStreak: " + e.state.currentStreak + "!\n" + (e.config.nTestAttempts - e.state.testId - 1) + " attempts left\n", "black", 0, -60);
       } else {
         e.state.currentStreak = 0;
-        r.renderText("Incorrect! (" + (e.config.nTestAttempts - e.state.testId - 1) + " attempts left).\n As a reminder, here are the rules: ", "black", 0, -150);
-        e.renderRules(0, -60);
+        r.renderText("Incorrect!", "red", 0, -180);
+        r.renderText("\n(" + (e.config.nTestAttempts - e.state.testId - 1) + " attempts left)\n As a reminder, here are the rules: ", "black", 0, -165);
+        e.renderRules(0, -50);
       }
       setTimeout((function() {
         return r.renderText("Press the spacebar to continue.", "black", 0, 180);
@@ -540,7 +537,7 @@
 
     Experiment.prototype.endExperiment = function(event) {
       removeEventListener("keydown", this.endExperiment);
-      return psiTurk.showPage('debriefing.html');
+      return psiTurk.showPage('postquestionnaire.html');
     };
 
     Experiment.prototype.endExperimentMoney = function() {
@@ -605,7 +602,7 @@
           })(this)), this.config.spacebarTimeout);
         case 1:
           r.clearScreen();
-          r.renderText("First, you will learn the rules mapping " + this.stimsName + " to keys.\n Then, we will test that you learned the mappings.\n If you fail, the HIT will end and you will earn the minimum payment ($" + this.config.minPayment + ").\n If you succeed, you will compete for an additional bonus (up to $" + this.config.maxBonus + ").\n You response keys will be '4' and '8'. \n You should put your left index finger on '4' and right index finger on '8' now. \n\n", "black", 0, -200);
+          r.renderText("First, you will learn the rules mapping " + this.stimsName + " to keys.\n Then, we will test that you learned the rules.\n If you fail, the HIT will end and you will earn the minimum payment ($" + this.config.minPayment + ").\n If you succeed, you will compete for an additional bonus (up to $" + this.config.maxBonus + ").\n You response keys will be '4' and '8'. \n You should put your left index finger on '4' and right index finger on '8' now. \n\n", "black", 0, -200);
           setTimeout((function() {
             return r.renderText("Press the spacebar to continue.", "black", 0, 100);
           }), this.config.spacebarTimeout);
@@ -652,10 +649,10 @@
           return this.praxTrialTypes[this.bPrax[0]].run();
         case 6:
           r.clearScreen();
-          r.renderText("Now, we will test that you have learned the rules.\n You will see a sequence of trials. Your goal is to get " + this.config.testStreakToPass + " correct in a row.\n You will have " + this.config.nTestAttempts + " trials total. If you get " + this.config.testStreakToPass + " correct in a row, you can compete\n for a bonus of up to $" + this.config.maxBonus + ". If you get to " + this.config.nTestAttempts + " without getting " + this.config.testStreakToPass + " in a row, \n the HIT will end and you will get the minimum payment ($" + this.config.minPayment + ").\n\n As a reminder, here are the rules: \n", "black", 0, -200);
-          this.renderRules(0, 60);
+          r.renderText("Now, we will test that you have learned the rules.\n You will see a sequence of trials. Your goal is to get " + this.config.testStreakToPass + " correct in a row.\n You will have " + this.config.nTestAttempts + " trials total. If you get " + this.config.testStreakToPass + " correct in a row, you can compete\n for a bonus of up to $" + this.config.maxBonus + ". If you get to " + this.config.nTestAttempts + " without getting " + this.config.testStreakToPass + " in a row, \n the HIT will end and you will get the minimum payment ($" + this.config.minPayment + ").\n\n As a reminder, here are the rules: \n", "black", 0, -215);
+          this.renderRules(0, 45);
           setTimeout((function() {
-            return r.renderText("Press the spacebar to continue.", "black", 0, 230);
+            return r.renderText("Press the spacebar to continue.", "black", 0, 215);
           }), this.config.spacebarTimeout);
           return setTimeout(((function(_this) {
             return function() {
@@ -668,7 +665,7 @@
           return this.testTrialTypes[this.testTrialOrder[0]].run();
         case 8:
           r.clearScreen();
-          r.renderText("Congratulations! You have learned the rules.\n You will now see " + this.config.nTrials + " more trials in blocks of " + this.config.blockSize + ".\n You will get " + this.config.correctPoints + " points for a correct response.\n You will receive $1 for each " + this.config.pointsPerDollar + " points.\n You have up to " + this.config.deadline + " seconds to respond on each trial,\n but the faster you go, the faster you will finish the HIT.\n The HIT will end when you have done " + this.config.nTrials + " trials.\n \n \n", "black", 0, -260);
+          r.renderText("Congratulations! You have learned the rules.\n You will now see " + this.config.nBlocks + " blocks with " + this.config.blockSize + " trials in each block.\n You will get " + this.config.correctPoints + " points for a correct response.\n You will receive $1 for each " + this.config.pointsPerDollar + " points.\n\n You have up to " + this.config.deadline + " seconds to respond on each trial,\n but the faster you go, the faster you will finish the HIT.\n\n The HIT will end when you have completed the " + this.config.nBlocks + " blocks.\n\n", "black", 0, -260);
           setTimeout((function() {
             return r.renderText("Press the spacebar to continue.", "black", 0, 100);
           }), this.config.spacebarTimeout);
@@ -679,10 +676,11 @@
           })(this)), this.config.spacebarTimeout);
         case 9:
           r.clearScreen();
-          r.renderText("As a reminder, here are the rules:", "black", 0, -200);
-          this.renderRules(0, -150);
+          r.renderText("As a reminder, here are the rules:", "black", 0, -220);
+          this.renderRules(0, -180);
+          r.renderText("As soon as you press 4 or 8, \n we will give feedback about your speed and accuracy\n and the game will continue to the next trial automatically\n (you do NOT need to press spacebar during the block).\n", "black", 0, 0);
           setTimeout((function() {
-            return r.renderText("Press the spacebar to continue.", "black", 0, 100);
+            return r.renderText("Press the spacebar to continue.", "black", 0, 180);
           }), this.config.spacebarTimeout);
           return setTimeout(((function(_this) {
             return function() {
@@ -702,7 +700,7 @@
       if (yoffset == null) {
         yoffset = 0;
       }
-      r.renderText("followed by      -->  press the '4' key\n followed by      -->  press the '4' key\n followed by      -->  press the '8' key\n followed by      -->  press the '8' key", "black", xoffset, yoffset);
+      r.renderText("followed by     -->  press the '4' key\n followed by     -->  press the '4' key\n followed by     -->  press the '8' key\n followed by     -->  press the '8' key", "black", xoffset, yoffset);
       this.renderStimInstruct(e.stimuli[0], "blue", -250 + xoffset, 105 + yoffset);
       this.renderStimInstruct(e.stimuli[2], "blue", -50 + xoffset, 105 + yoffset);
       this.renderStimInstruct(e.stimuli[0], "blue", -250 + xoffset, 35 + yoffset);

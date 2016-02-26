@@ -47,10 +47,10 @@ class Trial
     r.clearScreen()
     if @acc is 1 
         @renderFunc @targetItem, "green"
-        r.renderText "RT: #{ExtMath.round(@rt, 2)}ms!", "green", 0, 100
+        r.renderText "Speed: #{ExtMath.round(@rt, 0)} ms", "green", 0, 100
     else 
         @renderFunc @targetItem, "red"
-        r.renderText "RT: #{ExtMath.round(@rt,2)}ms!", "red", 0, 100
+        r.renderText "Speed: #{ExtMath.round(@rt,0)} ms", "red", 0, 100
     setTimeout (-> e.doNext() ), e.config.feedbackDispTime
 
   enableInput: =>
@@ -82,8 +82,9 @@ class PracticeTrial extends Trial
       r.renderText "Correct!", "green"
     else 
       r.renderText "Incorrect!", "red"
-    setTimeout (-> r.renderText "Press the spacebar to continue.", "black", 0, 180 ), e.config.spacebarTimeout
-    setTimeout (=> addEventListener "keydown", @handleSpacebar), e.config.spacebarTimeout
+    setTimeout (-> e.doNext() ), e.config.feedbackTimePractice
+#    setTimeout (-> r.renderText "Press the spacebar to continue.", "black", 0, 180 ), e.config.spacebarTimeout
+#    setTimeout (=> addEventListener "keydown", @handleSpacebar), e.config.spacebarTimeout
 
 class TestTrial extends PracticeTrial
 
@@ -94,12 +95,14 @@ class TestTrial extends PracticeTrial
     r.clearScreen()
     if @acc is 1
       e.state.currentStreak = e.state.currentStreak + 1
-      r.renderText "Correct (Streak: #{e.state.currentStreak})! (#{e.config.nTestAttempts-e.state.testId-1} attempts left)\n"
+      r.renderText "Correct!", "green", 0, -100
+      r.renderText "\nStreak: #{e.state.currentStreak}!\n#{e.config.nTestAttempts-e.state.testId-1} attempts left\n", "black", 0, -60
     else
       e.state.currentStreak = 0
-      r.renderText "Incorrect! (#{e.config.nTestAttempts-e.state.testId-1} attempts left).\n
-                    As a reminder, here are the rules: ", "black", 0, -150
-      e.renderRules(0, -60)
-    
+      r.renderText "Incorrect!","red", 0, -180
+      r.renderText "\n(#{e.config.nTestAttempts-e.state.testId-1} attempts left)\n
+                    As a reminder, here are the rules: ", "black", 0, -165
+      e.renderRules(0, -50)
+#    setTimeout (-> e.doNext() ), e.config.feedbackTimePractice
     setTimeout (-> r.renderText "Press the spacebar to continue.", "black", 0, 180 ), e.config.spacebarTimeout
     setTimeout (=> addEventListener "keydown", @handleSpacebar), e.config.spacebarTimeout

@@ -1,61 +1,171 @@
+<!doctype html>
+<html>
+<head>
+    <title>Post-Experiment Questionnaire</title>
+    <style>
+    table, td, th {
+        padding:5,
+        border-spacing: 5;
+    }
+    </style>
+</head>
+<body><script type="text/javascript">
+  keydownfun = function() {}; // Should unbind keys.
+
+    error_message = "<h1>Oops!</h1><p>Something went wrong submitting your HIT. This might happen if you lose your internet connection. Press the button to resubmit.</p><button id='resubmit'>Resubmit</button>";
+
+    record_responses = function() {
+
+        // psiTurk.recordTrialData({'phase':'postquestionnaire', 'status':'submit'});
+
+        $('textarea').each( function(i, val) {
+            psiTurk.recordUnstructuredData(this.id, this.value);
+        });
+        $('select').each( function(i, val) {
+            psiTurk.recordUnstructuredData(this.id, this.value);        
+        });
+
+    };
+
+    prompt_resubmit = function() {
+        replaceBody(error_message);
+        $("#resubmit").click(resubmit);
+    };
+
+    resubmit = function() {
+        replaceBody("<h1>Trying to resubmit...</h1>");
+        reprompt = setTimeout(prompt_resubmit, 10000);
+        
+        psiTurk.saveData({
+            success: function() {
+                psiTurk.showPage('debriefing.html');
+ //               clearInterval(reprompt);                
+ //               psiTurk.computeBonus('compute_bonus', function(){finish()}); 
+            }, 
+            error: prompt_resubmit
+        });
+    };
+
+    // Load the questionnaire snippet 
+    // psiTurk.showPage('postquestionnaire.html');
+    // psiTurk.recordTrialData({'phase':'postquestionnaire', 'status':'begin'});
+    
+    $("#next").click(function () {       
+        record_responses();
+        psiTurk.saveData({
+            success: function(){
+                psiTurk.showPage('debriefing.html');
+//        psiTurk.completeHIT();
+//                 psiTurk.computeBonus('compute_bonus', function() { 
+//                     psiTurk.completeHIT(); // when finished saving compute bonus, the quit
+//                 }); 
+            }, 
+            error: prompt_resubmit});
+    }); 
+
+
+</script>
+
 <div id="container-questionnaire">
     <h1>Task Complete</h1>
 
     <hr>
 
-    <p>You are finished!  Thank you for your contributions to science. You will be eligible for full payment once you answer the following questions.</p>
+    <p>You are finished!  Thank you for your contribution to science. You will be eligible for full payment once you answer the following questions.</p>
 
     <div class="instructions well">
 
         <form id="postquiz" action="debrief" method="post">
-
-
+            
             <!-- beginning of a question -->
             <div class="row question">
                 <div class="col-md-8">
-                    On a scale of 1-10 (where 10 is the most engaged), please rate how <b>ENGAGING</b> you found the learning task:
+                   For statistical purposes, please select your age bracket
                 </div>
                 <div class="col-md-4">
-                    <select id="engagement" name="engagement">
-                        <option value="10">10 - Very engaging</option>
-                        <option value="9">9</option>
-                        <option value="8">8</option>
-                        <option value="7">7</option>
-                        <option value="6">6</option>
-                        <option value="5" SELECTED>5 - Moderately</option>
-                        <option value="4">4</option>
-                        <option value="3">3</option>
-                        <option value="2">2</option>
-                        <option value="1">1</option>
-                        <option value="0">0 - Not engaged</option>
+                    <select id="age" name="age">
+                        <option value="-1" selected="">(Select One)</option>
+                        <option value="75">50+</option>
+                        <option value="45">40 to 49</option>
+                        <option value="35">30 to 39</option>
+                        <option value="24">18 to 29</option>
+                        <option value="0">1-17</option>
                     </select>
                 </div>
             </div>
             <!-- end of a question -->
 
-
             <!-- beginning of a question -->
             <div class="row question">
                 <div class="col-md-8">
-                    On a scale of 1-10 (where 10 is the most difficult), please rate how <b>DIFFICULT</b> you found the learning task:
+                   For statistical purposes, please select your gender
                 </div>
                 <div class="col-md-4">
-                    <select id="difficulty" name="difficulty">
-                        <option value="10">10 - Very difficult</option>
-                        <option value="9">9</option>
-                        <option value="8">8</option>
-                        <option value="7">7</option>
-                        <option value="6">6</option>
-                        <option value="5" SELECTED>5 - Moderately difficult</option>
-                        <option value="4">4</option>
-                        <option value="3">3</option>
-                        <option value="2">2</option>
-                        <option value="1">1</option>
-                        <option value="0">0 - Not difficult at all</option>
+                    <select id="gender" name="gender">
+                        <option value="-1" selected="">(Select One)</option>
+                        <option value="other">Other</option>
+                        <option value="female">Female</option>
+                        <option value="male">Male</option>
                     </select>
                 </div>
             </div>
             <!-- end of a question -->
+
+        <br>
+        Can you estimate how often each combination of letters appeared? 
+        Please enter the frequency of each combination as a percentage between 0% and 100%.
+        The four percentages should sum to 100.<br/>
+        <table><tr><th>Letter Combination&emsp;</th><th>Frequency (0%-100%)</th></tr>
+        <tr><td><textarea rows="1" cols="5" name="comb1" id="comb1"></textarea></td>
+        <td><textarea rows="1" cols="5" name="comb1freq" id="comb1freq"></textarea></td></tr>
+        <tr><td><textarea rows="1" cols="5" name="comb2" id="comb2"></textarea></td>
+        <td><textarea rows="1" cols="5" name="comb2freq" id="comb2freq"></textarea></td></tr>
+        <tr><td><textarea rows="1" cols="5" name="comb3" id="comb3"></textarea></td>
+        <td><textarea rows="1" cols="5" name="comb3freq" id="comb3freq"></textarea></td></tr>
+        <tr><td><textarea rows="1" cols="5" name="comb4" id="comb4"></textarea></td>
+        <td><textarea rows="1" cols="5" name="comb4freq" id="comb4freq"></textarea></td></tr>                
+        </table><br>
+    
+
+            <!-- beginning of a question -->
+            <p> 
+                The first letter in the pair can be considered as a rule to use on the second letter. (For example, if A appears first, press 4 for X and 8 for Y. If B appears first, press 8 for X and 4 for Y.) Which of the following best describes your strategy?
+            <br>
+                    <select id="proactiveness" name="proactiveness">
+                        <option value="proactive">I prepared the rule as soon as the first letter appeared</option>
+                        <option value="reactive">I waited for the second letter to appear before thinking about the rule</option>
+                        <option value="-1" selected="">(Select One)</option>
+                    </select>
+            </p>
+            <!-- end of a question -->
+
+
+            <!-- beginning of a question -->
+            <p>We are also interested in how you prepared your response (which button to press).<br>
+                    <select id="responsePrior" name="responsePrior">
+                        <option value="onePrior">I had one default response (either 4 or 8) for all trials.</option>
+                        <option value="twoPriors">I picked a different default button depending on the first letter (for example, 4 for A and 8 for B).</option>
+                        <option value="noPrior">I did not prepare a response until I had seen both letters.</option>
+                        <option value="-1" SELECTED>(Select One)</option>
+                    </select>
+            </p>
+            <!-- end of a question -->
+
+            <!-- beginning of a question -->
+            <p>Finally, we are interested in how you thought about the first letter. 
+                <br>
+                    <select id="memory" name="memory">
+                        <option value="-1" SELECTED>(Select One)</option>
+                        <option value="visual">I tried to keep the image of the first letter in my mind</option>
+                        <option value="verbal">I repeated the letter to myself verbally</option>
+                        <option value="motor">I used my fingers to put pressure on one button if it was an A and on the other button if it was a B</option>
+                        <option value="motor">I only thought about it once the second letter appeared.</option>
+                    </select>
+            </p>
+            <!-- end of a question -->
+        <br>
+        If you are not satisfied with any answers you selected above, or if you would like to tell us anything else about your strategy, please feel free to do so in this text box. Any details you provide will help us to better understand how you performed and experienced this task.<br/>
+        <textarea rows="10" cols="80" name="comments" id="comments"></textarea>
         </form>
     </div>
 
@@ -68,8 +178,8 @@
             <div class="col-xs-7">
             </div>
             <div class="col-xs-3">
-                <!-- onClick="javascript: psiTurk.showPage('debriefing.html');" --> 
-                <button type="button" id="next" value="next" class="btn btn-primary btn-lg continue" onClick="javascript: psiTurk.showPage('debriefing.html');">
+                <!-- onClick="javascript: psiTurk.showPage('debriefing.html');"-->
+                <button type="button" id="next" value="next" class="btn btn-primary btn-lg continue">
                     Continue <span class="glyphicon glyphicon-arrow-right"></span>
                 </button>
             </div>
@@ -78,3 +188,5 @@
 
 
 </div>
+</body>
+</html>

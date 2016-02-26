@@ -48,16 +48,17 @@
 			var psiTurk = PsiTurk(myUniqueId, myAdServerLoc);
 			// trial dists
 		  	// var trialDists = [[0.4, 0.1, 0.2, 0.3], [0.4, 0.1, 0.25, 0.25], [0.4, 0.1, 0.3, 0.2], ];
-		  	var trialDists = [[0.4, 0.1, 0.1, 0.4], [0.4, 0.1, 0.25, 0.25]];
+		  	var trialDists = [[0.4, 0.1, 0.1, 0.4], [0.4, 0.1, 0.4, 0.1]];
 		  	config_testing = {
 		  	  condition: myCondition,
-		      blockSize: 20,
-		      nBlocks: 2,
+		      blockSize: 10,
+		      nBlocks: 1,
 		      contextDur: 500,
 		      iti: 500,
-		      retentionInterval: 500,
+		      retentionInterval: 1000,
 		      spacebarTimeout: 1,
 		      feedbackDispTime: 750,
+		      feedbackTimePractice: 1000,
 		      blockRestDur: 2,
 		      nPraxTrials: 2,
 		      nTestAttempts: 50,
@@ -84,6 +85,7 @@
 		      retentionInterval: 2000,
 		      spacebarTimeout: 500,
 		      feedbackDispTime: 750,
+		      feedbackTimePractice: 1000,
 		      blockRestDur: 5,
 		      nPraxTrials: 6,
 		      nTestAttempts: 50,
