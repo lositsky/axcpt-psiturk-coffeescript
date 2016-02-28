@@ -1,5 +1,5 @@
 [HIT Configuration]
-title = Decision Making Task (up to $5 bonus)
+title = Context-Based Decision Making Task (up to $3.60 bonus)
 description = Respond to letters/symbols based on rules
 amt_keywords = Perception, Psychology
 lifetime = 24
@@ -28,7 +28,7 @@ threads = auto
 
 [Task Parameters]
 experiment_code_version = 1.0
-num_conds = 2
+num_conds = 20
 num_counters = 1
 
 [Shell Parameters]
