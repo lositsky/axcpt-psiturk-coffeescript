@@ -27,8 +27,7 @@ class Experiment
 
 
   shuffleTrials: ->
-    trialCounts = (td * @config.blockSize for td in @config.trialDist)
-    psiTurk.recordUnstructuredData("trialDist", @config.trialDist)
+    trialCounts = (td * @config.blockSize for td in @config.trialDist)    
     console.log @config.condition
     # http://stackoverflow.com/questions/5685449/nested-array-comprehensions-in-coffeescript
     @trialOrderBlock = [] 
@@ -149,6 +148,7 @@ class Experiment
     addEventListener "keydown", @endExperiment
 
   startExperiment: ->
+    psiTurk.recordUnstructuredData('trialDist', @config.trialDist)
     @state.phase = "experiment"
     psiTurk.finishInstructions()
     @state.trialIdGlobal = 0 # reset so that trial IDs start at 0 uniformly

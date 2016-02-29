@@ -423,7 +423,6 @@
         }
         return results;
       }).call(this);
-      psiTurk.recordUnstructuredData("trialDist", this.config.trialDist);
       console.log(this.config.condition);
       this.trialOrderBlock = [];
       for (i = k = 0, len = trialCounts.length; k < len; i = ++k) {
@@ -564,6 +563,7 @@
     };
 
     Experiment.prototype.startExperiment = function() {
+      psiTurk.recordUnstructuredData('trialDist', this.config.trialDist);
       this.state.phase = "experiment";
       psiTurk.finishInstructions();
       this.state.trialIdGlobal = 0;
