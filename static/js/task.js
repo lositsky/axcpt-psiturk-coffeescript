@@ -423,6 +423,7 @@
         }
         return results;
       }).call(this);
+      psiTurk.recordUnstructuredData("trialDist", this.config.trialDist);
       console.log(this.config.condition);
       this.trialOrderBlock = [];
       for (i = k = 0, len = trialCounts.length; k < len; i = ++k) {

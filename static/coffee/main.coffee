@@ -28,6 +28,7 @@ class Experiment
 
   shuffleTrials: ->
     trialCounts = (td * @config.blockSize for td in @config.trialDist)
+    psiTurk.recordUnstructuredData("trialDist", @config.trialDist)
     console.log @config.condition
     # http://stackoverflow.com/questions/5685449/nested-array-comprehensions-in-coffeescript
     @trialOrderBlock = [] 
