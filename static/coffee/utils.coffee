@@ -16,6 +16,9 @@ class Renderer
 
   constructor: (@config) ->
 
+  attachToCanvas: (id) ->
+    @canvas = document.getElementById id
+    @drawingContext = @canvas.getContext '2d'
 
   createDrawingContext: () ->
     @canvas = document.createElement 'canvas'
@@ -50,14 +53,17 @@ class Renderer
     if (fill)
       @drawingContext.fillStyle = color
       @drawingContext.fill()
-    @drawingContext.lineWidth = 1
+      @drawingContext.lineWidth = 1
     # @drawingContext.strokeStyle = 'color'
     @drawingContext.stroke() 
 
   renderDots: (stim, color="black", shiftX = 0, shiftY = 0, radius=10, sep=20) ->
     centerx = @canvas.width/2 + shiftX
     centery = @canvas.height/2 + shiftY - sep # shift things up to make these appear exactly where the letters do
+    # for 2 x 2 dots
     offsets = [[-1, -1], [1, -1], [-1, 1], [1, 1]]
+    # for 3 x 3 dots
+    # offsets = [[-1,-1], [-1, 0], [-1, 1], [0, -1], [0, 0], [0, 1], [1, -1], [1, 0], [1, 1]]
     for offset, i in offsets
       @renderCircle centerx+offset[0]*sep, centery+offset[1]*sep, radius, stim[i], color
 

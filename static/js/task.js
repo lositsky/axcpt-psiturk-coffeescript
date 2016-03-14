@@ -48,6 +48,11 @@
       this.clearScreen = bind(this.clearScreen, this);
     }
 
+    Renderer.prototype.attachToCanvas = function(id) {
+      this.canvas = document.getElementById(id);
+      return this.drawingContext = this.canvas.getContext('2d');
+    };
+
     Renderer.prototype.createDrawingContext = function() {
       this.canvas = document.createElement('canvas');
       document.body.appendChild(this.canvas);
@@ -106,8 +111,8 @@
       if (fill) {
         this.drawingContext.fillStyle = color;
         this.drawingContext.fill();
+        this.drawingContext.lineWidth = 1;
       }
-      this.drawingContext.lineWidth = 1;
       return this.drawingContext.stroke();
     };
 
@@ -614,13 +619,14 @@
           })(this)), this.config.spacebarTimeout);
         case 2:
           r.clearScreen();
-          r.renderText("Here is the first rule:\n followed by      -->  press the '4' key\n followed by      -->  press the '8' key\n\n Now you will get a chance to practice.", "black", 0, -200);
-          this.renderStimInstruct(this.stimuli[0], "blue", -250, -165);
-          this.renderStimInstruct(this.stimuli[1], "blue", -50, -165);
-          this.renderStimInstruct(this.stimuli[0], "blue", -250, -130);
-          this.renderStimInstruct(this.stimuli[2], "blue", -50, -130);
+          r.renderText("Here is the first rule:\n\n followed by         -->  press the '4' key\n", "black", 0, -240);
+          r.renderText(" followed by         -->  press the '8' key\n\n Now you will get a chance to practice.", "black", 0, -115);
+          this.renderStimInstruct(this.stimuli[0], "blue", -275, -165);
+          this.renderStimInstruct(this.stimuli[1], "blue", -55, -165);
+          this.renderStimInstruct(this.stimuli[0], "blue", -275, -115);
+          this.renderStimInstruct(this.stimuli[2], "blue", -55, -115);
           setTimeout((function() {
-            return r.renderText("Press the spacebar to continue.", "black", 0, 0);
+            return r.renderText("Press the spacebar to continue.", "black", 0, 20);
           }), this.config.spacebarTimeout);
           return setTimeout(((function(_this) {
             return function() {
@@ -632,13 +638,14 @@
           return this.praxTrialTypes[this.aPrax[0]].run();
         case 4:
           r.clearScreen();
-          r.renderText("Here is the second rule:\n followed by      -->  press the '4' key\n followed by      -->  press the '8' key\n\n Now you will get a chance to practice.", "black", 0, -200);
-          this.renderStimInstruct(this.stimuli[3], "blue", -250, -165);
-          this.renderStimInstruct(this.stimuli[2], "blue", -50, -165);
-          this.renderStimInstruct(this.stimuli[3], "blue", -250, -130);
-          this.renderStimInstruct(this.stimuli[1], "blue", -50, -130);
+          r.renderText("Here is the second rule:\n\n followed by         -->  press the '4' key\n", "black", 0, -240);
+          r.renderText(" followed by         -->  press the '8' key\n\n Now you will get a chance to practice.", "black", 0, -115);
+          this.renderStimInstruct(this.stimuli[3], "blue", -275, -165);
+          this.renderStimInstruct(this.stimuli[2], "blue", -55, -165);
+          this.renderStimInstruct(this.stimuli[3], "blue", -275, -115);
+          this.renderStimInstruct(this.stimuli[1], "blue", -55, -115);
           setTimeout((function() {
-            return r.renderText("Press the spacebar to continue.", "black", 0, 0);
+            return r.renderText("Press the spacebar to continue.", "black", 0, 20);
           }), this.config.spacebarTimeout);
           return setTimeout(((function(_this) {
             return function() {
@@ -650,8 +657,8 @@
           return this.praxTrialTypes[this.bPrax[0]].run();
         case 6:
           r.clearScreen();
-          r.renderText("Now, we will test that you have learned the rules.\n You will see a sequence of trials. Your goal is to get " + this.config.testStreakToPass + " correct in a row.\n You will have " + this.config.nTestAttempts + " trials total. If you get " + this.config.testStreakToPass + " correct in a row, you can compete\n for a bonus of up to $" + this.config.maxBonus + ". If you get to " + this.config.nTestAttempts + " without getting " + this.config.testStreakToPass + " in a row, \n the HIT will end and you will get the minimum payment ($" + this.config.minPayment + ").\n\n As a reminder, here are the rules: \n", "black", 0, -215);
-          this.renderRules(0, 45);
+          r.renderText("Now, we will test that you have learned the rules.\n You will see a sequence of trials. Your goal is to get " + this.config.testStreakToPass + " correct in a row.\n You will have " + this.config.nTestAttempts + " trials total. If you get " + this.config.testStreakToPass + " correct in a row, you can compete\n for a bonus of up to $" + this.config.maxBonus + ". If you get to " + this.config.nTestAttempts + " without getting " + this.config.testStreakToPass + " in a row, \n the HIT will end and you will get the minimum payment ($" + this.config.minPayment + ").\n\n As a reminder, here are the rules: \n", "black", 0, -270);
+          this.renderRules(0, 0);
           setTimeout((function() {
             return r.renderText("Press the spacebar to continue.", "black", 0, 215);
           }), this.config.spacebarTimeout);
@@ -677,8 +684,8 @@
           })(this)), this.config.spacebarTimeout);
         case 9:
           r.clearScreen();
-          r.renderText("As a reminder, here are the rules:", "black", 0, -220);
-          this.renderRules(0, -180);
+          r.renderText("As a reminder, here are the rules:", "black", 0, -240);
+          this.renderRules(0, -200);
           r.renderText("As soon as you press 4 or 8, \n we will give feedback about your speed and accuracy\n and the game will continue to the next trial automatically\n (you do NOT need to press spacebar during the block).\n", "black", 0, 0);
           setTimeout((function() {
             return r.renderText("Press the spacebar to continue.", "black", 0, 180);
@@ -701,15 +708,18 @@
       if (yoffset == null) {
         yoffset = 0;
       }
-      r.renderText("followed by     -->  press the '4' key\n followed by     -->  press the '4' key\n followed by     -->  press the '8' key\n followed by     -->  press the '8' key", "black", xoffset, yoffset);
-      this.renderStimInstruct(e.stimuli[0], "blue", -250 + xoffset, 105 + yoffset);
-      this.renderStimInstruct(e.stimuli[2], "blue", -50 + xoffset, 105 + yoffset);
-      this.renderStimInstruct(e.stimuli[0], "blue", -250 + xoffset, 35 + yoffset);
-      this.renderStimInstruct(e.stimuli[1], "blue", -50 + xoffset, 35 + yoffset);
-      this.renderStimInstruct(e.stimuli[3], "blue", -250 + xoffset, 70 + yoffset);
-      this.renderStimInstruct(e.stimuli[1], "blue", -50 + xoffset, 70 + yoffset);
-      this.renderStimInstruct(e.stimuli[3], "blue", -250 + xoffset, 0 + yoffset);
-      return this.renderStimInstruct(e.stimuli[2], "blue", -50 + xoffset, 0 + yoffset);
+      r.renderText("followed by         -->  press the '4' key\n", "black", xoffset, 0 + yoffset);
+      r.renderText("followed by         -->  press the '4' key\n", "black", xoffset, 50 + yoffset);
+      r.renderText("followed by         -->  press the '8' key\n", "black", xoffset, 100 + yoffset);
+      r.renderText("followed by         -->  press the '8' key", "black", xoffset, 150 + yoffset);
+      this.renderStimInstruct(e.stimuli[3], "blue", -270 + xoffset, 0 + yoffset);
+      this.renderStimInstruct(e.stimuli[2], "blue", -50 + xoffset, 0 + yoffset);
+      this.renderStimInstruct(e.stimuli[0], "blue", -270 + xoffset, 50 + yoffset);
+      this.renderStimInstruct(e.stimuli[1], "blue", -50 + xoffset, 50 + yoffset);
+      this.renderStimInstruct(e.stimuli[3], "blue", -270 + xoffset, 100 + yoffset);
+      this.renderStimInstruct(e.stimuli[1], "blue", -50 + xoffset, 100 + yoffset);
+      this.renderStimInstruct(e.stimuli[0], "blue", -270 + xoffset, 150 + yoffset);
+      return this.renderStimInstruct(e.stimuli[2], "blue", -50 + xoffset, 150 + yoffset);
     };
 
     Experiment.prototype.createTrialTypes = function() {
@@ -847,7 +857,7 @@
 
   })(Experiment);
 
-  window.Experiment = LettersExperiment;
+  window.Experiment = DotsExperiment;
 
   window.Renderer = Renderer;
 

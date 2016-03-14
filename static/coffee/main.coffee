@@ -189,30 +189,34 @@ class Experiment
         setTimeout (=> addEventListener "keydown", @handleSpacebar), @config.spacebarTimeout
       when 2
         r.clearScreen()
-        r.renderText "Here is the first rule:\n
-                      followed by      -->  press the '4' key\n
-                      followed by      -->  press the '8' key\n\n
-                      Now you will get a chance to practice.", "black", 0, -200
-        @renderStimInstruct @stimuli[0], "blue", -250, -165
-        @renderStimInstruct @stimuli[1], "blue", -50, -165
-        @renderStimInstruct @stimuli[0], "blue", -250, -130
-        @renderStimInstruct @stimuli[2], "blue", -50, -130
-        setTimeout (-> r.renderText "Press the spacebar to continue.", "black", 0, 0 ), @config.spacebarTimeout
+        r.renderText "Here is the first rule:\n\n
+                      followed by         -->  press the '4' key\n", "black", 0, -240
+        r.renderText " followed by         -->  press the '8' key\n\n
+                      Now you will get a chance to practice.", "black", 0, -115
+        @renderStimInstruct @stimuli[0], "blue", -275, -165
+        @renderStimInstruct @stimuli[1], "blue", -55, -165
+        @renderStimInstruct @stimuli[0], "blue", -275, -115
+        @renderStimInstruct @stimuli[2], "blue", -55, -115
+        setTimeout (-> r.renderText "Press the spacebar to continue.", "black", 0, 20 ), @config.spacebarTimeout
         setTimeout (=> addEventListener "keydown", @handleSpacebar), @config.spacebarTimeout
       when 3
         @state.phase = "APractice"
         @praxTrialTypes[@aPrax[0]].run()
       when 4
         r.clearScreen()
-        r.renderText "Here is the second rule:\n
-                      followed by      -->  press the '4' key\n
-                      followed by      -->  press the '8' key\n\n
-                      Now you will get a chance to practice.", "black", 0, -200
-        @renderStimInstruct @stimuli[3], "blue", -250, -165
-        @renderStimInstruct @stimuli[2], "blue", -50, -165
-        @renderStimInstruct @stimuli[3], "blue", -250, -130
-        @renderStimInstruct @stimuli[1], "blue", -50, -130
-        setTimeout (-> r.renderText "Press the spacebar to continue.", "black", 0, 0 ), @config.spacebarTimeout
+        r.renderText "Here is the second rule:\n\n
+                      followed by         -->  press the '4' key\n","black", 0, -240
+        r.renderText " followed by         -->  press the '8' key\n\n
+                      Now you will get a chance to practice.", "black", 0, -115
+        @renderStimInstruct @stimuli[3], "blue", -275, -165
+        @renderStimInstruct @stimuli[2], "blue", -55, -165
+        @renderStimInstruct @stimuli[3], "blue", -275, -115
+        @renderStimInstruct @stimuli[1], "blue", -55, -115
+        # @renderStimInstruct @stimuli[3], "blue", -250, -165
+        # @renderStimInstruct @stimuli[2], "blue", -50, -165
+        # @renderStimInstruct @stimuli[3], "blue", -250, -130
+        # @renderStimInstruct @stimuli[1], "blue", -50, -130
+        setTimeout (-> r.renderText "Press the spacebar to continue.", "black", 0, 20 ), @config.spacebarTimeout
         setTimeout (=> addEventListener "keydown", @handleSpacebar), @config.spacebarTimeout
       when 5
         @state.phase = "BPractice"
@@ -224,8 +228,8 @@ class Experiment
                       You will have #{@config.nTestAttempts} trials total. If you get #{@config.testStreakToPass} correct in a row, you can compete\n
                       for a bonus of up to $#{@config.maxBonus}. If you get to #{@config.nTestAttempts} without getting #{@config.testStreakToPass} in a row, \n
                       the HIT will end and you will get the minimum payment ($#{@config.minPayment}).\n\n
-                      As a reminder, here are the rules: \n", "black", 0, -215
-        @renderRules(0, 45)
+                      As a reminder, here are the rules: \n", "black", 0, -270 # -215
+        @renderRules(0, 0) # 45
         setTimeout (-> r.renderText "Press the spacebar to continue.", "black", 0, 215 ), @config.spacebarTimeout
         setTimeout (=> addEventListener "keydown", @handleSpacebar), @config.spacebarTimeout
       when 7
@@ -246,8 +250,8 @@ class Experiment
         setTimeout (=> addEventListener "keydown", @handleSpacebar), @config.spacebarTimeout
       when 9
         r.clearScreen()
-        r.renderText "As a reminder, here are the rules:", "black", 0, -220
-        @renderRules(0, -180)
+        r.renderText "As a reminder, here are the rules:", "black", 0, -240 
+        @renderRules(0, -200)
         r.renderText  "As soon as you press 4 or 8, \n
                       we will give feedback about your speed and accuracy\n
                       and the game will continue to the next trial automatically\n
@@ -259,18 +263,20 @@ class Experiment
         @startExperiment()
 
   renderRules : (xoffset=0, yoffset=0)->
-    r.renderText "followed by     -->  press the '4' key\n
-                  followed by     -->  press the '4' key\n
-                  followed by     -->  press the '8' key\n
-                  followed by     -->  press the '8' key", "black", xoffset, yoffset
-    @renderStimInstruct e.stimuli[0], "blue", -250+xoffset, 105+yoffset
-    @renderStimInstruct e.stimuli[2], "blue", -50+xoffset, 105+yoffset
-    @renderStimInstruct e.stimuli[0], "blue", -250+xoffset, 35+yoffset
-    @renderStimInstruct e.stimuli[1], "blue", -50+xoffset, 35+yoffset
-    @renderStimInstruct e.stimuli[3], "blue", -250+xoffset, 70+yoffset
-    @renderStimInstruct e.stimuli[1], "blue", -50+xoffset, 70+yoffset
-    @renderStimInstruct e.stimuli[3], "blue", -250+xoffset, 0+yoffset
-    @renderStimInstruct e.stimuli[2], "blue", -50+xoffset, 0+yoffset
+    r.renderText "followed by         -->  press the '4' key\n", "black", xoffset, 0+yoffset
+    r.renderText "followed by         -->  press the '4' key\n", "black", xoffset, 50+yoffset
+    r.renderText "followed by         -->  press the '8' key\n", "black", xoffset, 100+yoffset
+    r.renderText "followed by         -->  press the '8' key", "black", xoffset, 150+yoffset
+    @renderStimInstruct e.stimuli[3], "blue", -270+xoffset, 0+yoffset # B
+    @renderStimInstruct e.stimuli[2], "blue", -50+xoffset, 0+yoffset # Y
+    @renderStimInstruct e.stimuli[0], "blue", -270+xoffset, 50+yoffset # A
+    @renderStimInstruct e.stimuli[1], "blue", -50+xoffset, 50+yoffset # X
+    @renderStimInstruct e.stimuli[3], "blue", -270+xoffset, 100+yoffset # B
+    @renderStimInstruct e.stimuli[1], "blue", -50+xoffset, 100+yoffset # X
+    @renderStimInstruct e.stimuli[0], "blue", -270+xoffset, 150+yoffset # A
+    @renderStimInstruct e.stimuli[2], "blue", -50+xoffset, 150+yoffset # Y
+# 0, 35, 70, 105
+
 
   createTrialTypes: -> 
     @stimuli.shuffle() 
@@ -325,17 +331,22 @@ class DotsExperiment extends Experiment
   stimsName : "dots"
   # all except 0000 which make it hard to see color
   # @stimuli : [[0,0,0,1],[0,0,1,0],[0,0,1,1],[0,1,0,0],[0,1,0,1],[0,1,1,0],[0,1,1,1],[1,0,0,0],[1,0,0,1],[1,0,1,0],[1,0,1,1],[1,1,0,0],[1,1,0,1],[1,1,1,0],[1,1,1,1]]
-  # all with 2 empty 2 filled
+  # all with 2 empty 2 filled => easy to use "both diagonal vs. both straight strategy"
   stimuli: [[0,0,1,1],[0,1,0,1],[0,1,1,0],[1,0,0,1],[1,0,1,0],[1,1,0,0]]
+  # 3, 4, 5 and 6 filled dots out of 9 => too easy because of number of dots
+  # stimuli: [[1,0,1,1,0,1,1,0,1], [0,1,0,1,1,1,0,1,0], [1,0,1,0,0,0,1,0,1], [0,0,0,1,1,1,0,0,0]]
+  # 3 dots vertical and horizontal; 6 dots vertical and horizontal
+  # stimuli: [[0,1,0,0,1,0,0,1,0], [0,0,0,1,1,1,0,0,0], [1,0,1,1,0,1,1,0,1], [1,1,1,0,0,0,1,1,1]]
+  # the above is too easy, unless two of these are always cues and two of them always probes
 
   renderStimInstruct : (stim, colour="black", xoffset=0, yoffset=0)->
     r.renderDots stim, colour, xoffset, yoffset, 5, 7
-  
+  # r.renderDots stim, colour, xoffset, yoffset, 5, 13
   renderStimTrial : (stim, colour="black", xoffset=0, yoffset=0)->
     r.renderDots stim, colour, xoffset, yoffset, 15, 20
+  # r.renderDots stim, colour, xoffset, yoffset, 15, 35
 
-
-window.Experiment = LettersExperiment
-# window.Experiment = DotsExperiment
+# window.Experiment = LettersExperiment
+window.Experiment = DotsExperiment
 window.Renderer = Renderer
 
