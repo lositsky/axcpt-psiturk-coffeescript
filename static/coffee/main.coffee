@@ -28,17 +28,17 @@ class Experiment
 
   shuffleTrials: ->
     trialCounts = (td * @config.blockSize for td in @config.trialDist)    
-    console.log @config.condition
+    # console.log @config.condition
     # http://stackoverflow.com/questions/5685449/nested-array-comprehensions-in-coffeescript
     @trialOrderBlock = [] 
     @trialOrderBlock = @trialOrderBlock.concat i for [1..tc] for tc, i in trialCounts
     @trialOrderBlock.shuffle()
-    console.log @trialOrderBlock
+    # console.log @trialOrderBlock
     if (@state.blockId is 0)
       @trialOrder = @trialOrderBlock
     else
       @trialOrder = @trialOrder.concat @trialOrderBlock
-    console.log @trialOrder  
+    # console.log @trialOrder  
     
 
   handleSpacebar: (event) =>
@@ -160,11 +160,12 @@ class Experiment
   blockFeedback: ->
     r.clearScreen()
     # otherwise do feedback and next trial
-    feedbackText = "Done with this block! \n You earned #{ExtMath.round(@state.blockBonus, 2)} out of #{@config.correctPoints*@config.blockSize} bonus points!\n"
-    r.renderText feedbackText
+    feedbackText = "Done with block #{@state.blockId} / #{@config.nBlocks}: \n \n
+    You earned #{ExtMath.round(@state.blockBonus, 2)} / #{@config.correctPoints*@config.blockSize} bonus points!\n"
+    r.renderText feedbackText, "black", 0, -200
     @state.blockBonus = 0
     @updateBonusAndSave()
-    setTimeout (-> r.renderText "Press the spacebar to continue when you are ready to continue.", "black", 0, 100 ), @config.blockRestDur*1000
+    setTimeout (-> r.renderText "Press the spacebar when you are ready to continue.", "black", 0, 0 ), @config.blockRestDur*1000
     setTimeout (=> addEventListener "keydown", @handleSpacebarBlockEnd), @config.blockRestDur*1000
     
 
@@ -239,13 +240,13 @@ class Experiment
       when 8
         r.clearScreen()
         r.renderText "Congratulations! You have learned the rules.\n
-                      You will now see #{@config.nBlocks} blocks with #{@config.blockSize} trials in each block.\n
+                      You will now see #{@config.nBlocks} blocks with #{@config.blockSize} trials in each block.\n\n
                       You will get #{@config.correctPoints} points for a correct response.\n
                       You will receive $1 for each #{@config.pointsPerDollar} points.\n\n
                       You have up to #{@config.deadline} seconds to respond on each trial,\n
-                      but the faster you go, the faster you will finish the HIT.\n\n
-                      The HIT will end when you have completed the #{@config.nBlocks} blocks.\n\n
-                      ", "black", 0, -260
+                      but if you respond fast, you can finish the HIT in less than 18 minutes.\n
+                      If you respond slowly, you can finish the HIT in 30 minutes.\n\n", "black", 0, -260
+                      # The HIT will end when you have completed the #{@config.nBlocks} blocks.\n\n                      
         setTimeout (-> r.renderText "Press the spacebar to continue.", "black", 0, 100 ), @config.spacebarTimeout
         setTimeout (=> addEventListener "keydown", @handleSpacebar), @config.spacebarTimeout
       when 9

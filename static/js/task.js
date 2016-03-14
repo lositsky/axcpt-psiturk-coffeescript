@@ -428,7 +428,6 @@
         }
         return results;
       }).call(this);
-      console.log(this.config.condition);
       this.trialOrderBlock = [];
       for (i = k = 0, len = trialCounts.length; k < len; i = ++k) {
         tc = trialCounts[i];
@@ -437,13 +436,11 @@
         }
       }
       this.trialOrderBlock.shuffle();
-      console.log(this.trialOrderBlock);
       if (this.state.blockId === 0) {
-        this.trialOrder = this.trialOrderBlock;
+        return this.trialOrder = this.trialOrderBlock;
       } else {
-        this.trialOrder = this.trialOrder.concat(this.trialOrderBlock);
+        return this.trialOrder = this.trialOrder.concat(this.trialOrderBlock);
       }
-      return console.log(this.trialOrder);
     };
 
     Experiment.prototype.handleSpacebar = function(event) {
@@ -580,12 +577,12 @@
     Experiment.prototype.blockFeedback = function() {
       var feedbackText;
       r.clearScreen();
-      feedbackText = "Done with this block! \n You earned " + (ExtMath.round(this.state.blockBonus, 2)) + " out of " + (this.config.correctPoints * this.config.blockSize) + " bonus points!\n";
-      r.renderText(feedbackText);
+      feedbackText = "Done with block " + this.state.blockId + " / " + this.config.nBlocks + ": \n \n You earned " + (ExtMath.round(this.state.blockBonus, 2)) + " / " + (this.config.correctPoints * this.config.blockSize) + " bonus points!\n";
+      r.renderText(feedbackText, "black", 0, -200);
       this.state.blockBonus = 0;
       this.updateBonusAndSave();
       setTimeout((function() {
-        return r.renderText("Press the spacebar to continue when you are ready to continue.", "black", 0, 100);
+        return r.renderText("Press the spacebar when you are ready to continue.", "black", 0, 0);
       }), this.config.blockRestDur * 1000);
       return setTimeout(((function(_this) {
         return function() {
@@ -673,7 +670,7 @@
           return this.testTrialTypes[this.testTrialOrder[0]].run();
         case 8:
           r.clearScreen();
-          r.renderText("Congratulations! You have learned the rules.\n You will now see " + this.config.nBlocks + " blocks with " + this.config.blockSize + " trials in each block.\n You will get " + this.config.correctPoints + " points for a correct response.\n You will receive $1 for each " + this.config.pointsPerDollar + " points.\n\n You have up to " + this.config.deadline + " seconds to respond on each trial,\n but the faster you go, the faster you will finish the HIT.\n\n The HIT will end when you have completed the " + this.config.nBlocks + " blocks.\n\n", "black", 0, -260);
+          r.renderText("Congratulations! You have learned the rules.\n You will now see " + this.config.nBlocks + " blocks with " + this.config.blockSize + " trials in each block.\n\n You will get " + this.config.correctPoints + " points for a correct response.\n You will receive $1 for each " + this.config.pointsPerDollar + " points.\n\n You have up to " + this.config.deadline + " seconds to respond on each trial,\n but if you respond fast, you can finish the HIT in less than 18 minutes.\n If you respond slowly, you can finish the HIT in 30 minutes.\n\n", "black", 0, -260);
           setTimeout((function() {
             return r.renderText("Press the spacebar to continue.", "black", 0, 100);
           }), this.config.spacebarTimeout);
