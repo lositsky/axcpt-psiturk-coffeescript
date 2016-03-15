@@ -28,7 +28,7 @@ class Experiment
 
   shuffleTrials: ->
     trialCounts = (td * @config.blockSize for td in @config.trialDist)    
-    # console.log @config.condition
+    console.log @config.condition
     # http://stackoverflow.com/questions/5685449/nested-array-comprehensions-in-coffeescript
     @trialOrderBlock = [] 
     @trialOrderBlock = @trialOrderBlock.concat i for [1..tc] for tc, i in trialCounts
@@ -347,7 +347,7 @@ class DotsExperiment extends Experiment
     r.renderDots stim, colour, xoffset, yoffset, 15, 20
   # r.renderDots stim, colour, xoffset, yoffset, 15, 35
 
-# window.Experiment = LettersExperiment
-window.Experiment = DotsExperiment
+window.Experiment = LettersExperiment
+# window.Experiment = DotsExperiment
 window.Renderer = Renderer
 
