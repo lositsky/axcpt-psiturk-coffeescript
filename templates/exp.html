@@ -47,18 +47,18 @@
 			var myMode = "{{ mode }}";
 			var psiTurk = PsiTurk(myUniqueId, myAdServerLoc);
 			// trial dists
-		  	var trialDists = [[0.4, 0.1, 0.1, 0.4], [0.4, 0.1, 0.2, 0.3],[0.4, 0.1, 0.25, 0.25],[0.4, 0.1, 0.3, 0.2], [0.4, 0.1, 0.4, 0.1]];
-		  	// var trialDists = [[0.1, 0.4, 0.4, 0.1], [0.2, 0.3, 0.4, 0.1], [0.25, 0.25, 0.4, 0.1], [0.3, 0.2, 0.4, 0.1], [0.1, 0.4, 0.1, 0.4]];
-		  	// var trialDists = [[0.4, 0.1, 0.1, 0.4], [0.1, 0.4, 0.3, 0.2], [0.1, 0.4, 0.25, 0.25], [0.1, 0.4, 0.2, 0.3], [0.4, 0.1, 0.4, 0.1]];
-		  	// var trialDists = [[0.1, 0.4, 0.4, 0.1], [0.3, 0.2, 0.1, 0.4], [0.25, 0.25, 0.1, 0.4], [0.2, 0.3, 0.1, 0.4], [0.1, 0.4, 0.1, 0.4]];
+		  	var trialDists = [[0.4, 0.1, 0.1, 0.4], [0.4, 0.1, 0.2, 0.3],[0.4, 0.1, 0.25, 0.25],[0.4, 0.1, 0.3, 0.2], [0.4, 0.1, 0.4, 0.1],
+		  					[0.1, 0.4, 0.4, 0.1], [0.2, 0.3, 0.4, 0.1], [0.25, 0.25, 0.4, 0.1], [0.3, 0.2, 0.4, 0.1], [0.1, 0.4, 0.1, 0.4],
+		  					[0.4, 0.1, 0.1, 0.4], [0.1, 0.4, 0.3, 0.2], [0.1, 0.4, 0.25, 0.25], [0.1, 0.4, 0.2, 0.3], [0.4, 0.1, 0.4, 0.1],
+		  					[0.1, 0.4, 0.4, 0.1], [0.3, 0.2, 0.1, 0.4], [0.25, 0.25, 0.1, 0.4], [0.2, 0.3, 0.1, 0.4], [0.1, 0.4, 0.1, 0.4]];
 		  	config_testing = {
 		  	  condition: myCondition,
-		      blockSize: 10,
+		      blockSize: 20,
 		      nBlocks: 2,
 		      contextDur: 500,
 		      iti: 500,
-		      retentionInterval: 1000,
-		      spacebarTimeout: 1,
+		      retentionInterval: 2000,
+		      spacebarTimeout: 500,
 		      feedbackDispTime: 750,
 		      feedbackTimePractice: 1000,
 		      blockRestDur: 2,
@@ -88,7 +88,7 @@
 		      spacebarTimeout: 500,
 		      feedbackDispTime: 750,
 		      feedbackTimePractice: 1000,
-		      blockRestDur: 5,
+		      blockRestDur: 2,
 		      nPraxTrials: 6,
 		      nTestAttempts: 50,
 		      testStreakToPass: 10,
@@ -107,10 +107,10 @@
 			};
 			psiTurk.preloadPages(["debriefing.html"]);
 			psiTurk.preloadPages(["postquestionnaire.html"]);
-			r = new Renderer(config);
-			e = new Experiment(config);
-			// r = new Renderer(config_testing);
-			// e = new Experiment(config_testing);
+			// r = new Renderer(config);
+			// e = new Experiment(config);
+			r = new Renderer(config_testing);
+			e = new Experiment(config_testing);
 			e.run(); 
 
 		</script>
