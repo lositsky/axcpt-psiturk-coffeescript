@@ -855,7 +855,7 @@
 
   })(Experiment);
 
-  window.Experiment = LettersExperiment;
+  window.Experiment = DotsExperiment;
 
   window.Renderer = Renderer;
 
