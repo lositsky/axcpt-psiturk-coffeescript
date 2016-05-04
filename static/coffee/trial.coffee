@@ -14,7 +14,6 @@ class Trial
 
   recordTrial: () =>
     psiTurk.recordTrialData {"trialId":e.state.trialIdGlobal, "blockID":e.state.blockId, "context":@context, "target":@target, "contextItem": @contextItem, "targetItem":@targetItem, "cresp":@cresp, "rt":@rt, "acc":@acc, "bonus":@bonus, "dollars":@bonus/e.config.pointsPerDollar}
-    @showFeedback()
 
   handleButtonPress: (event) =>
     if event.keyCode in @keys # it's one of our legal responses
@@ -22,7 +21,9 @@ class Trial
       @rt = performance.now() - @startTime
       @acc = if event.keyCode == @cresp then 1 else 0
       @computeBonus()
-      
+      clearTimeout @timeout
+      @recordTrial() 
+      @showFeedback()
 
   constructor:(@context, @target, @renderFunc, @contextItem, @targetItem, @keys, @cresp, @contextColor="black", @targetColor="black")-> 
 
@@ -31,8 +32,6 @@ class Trial
     @bonus = @bonus - @rt * e.config.penaltyPerSecond / 1000 
     e.state.blockBonus = e.state.blockBonus + @bonus
     e.state.globalBonus = e.state.globalBonus + @bonus
-    clearTimeout @timeout
-    @recordTrial() 
 
   timedOut: =>
     r.clearScreen()
@@ -72,13 +71,10 @@ class PracticeTrial extends Trial
     addEventListener "keydown", @handleButtonPress
 
   computeBonus: => 
-    # override so we don't grant bonuses on prax
-    clearTimeout @timeout
-    @recordTrial() 
+    # do nothing... just override so we don't grant bonuses on prax
 
   recordTrial: () =>
     psiTurk.recordTrialData {"trialId":e.state.trialIdGlobal, "blockID":"Practice", "context":@context, "target":@target, "contextItem": @contextItem, "targetItem":@targetItem, "cresp":@cresp, "rt":@rt, "acc":@acc, "bonus":0, "dollars": 0}
-    @showFeedback()    
 
   showFeedback: =>
     r.clearScreen()
@@ -94,7 +90,6 @@ class TestTrial extends PracticeTrial
 
   recordTrial: () =>
     psiTurk.recordTrialData {"trialId":e.state.testId, "blockID":"Test", "context":@context, "target":@target, "contextItem": @contextItem, "targetItem":@targetItem, "cresp":@cresp, "rt":@rt, "acc":@acc, "bonus":0, "dollars": 0}
-    @showFeedback()    
 
   showFeedback: =>
     r.clearScreen()
