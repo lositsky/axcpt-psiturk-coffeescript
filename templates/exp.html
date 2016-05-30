@@ -47,14 +47,11 @@
 			var myMode = "{{ mode }}";
 			var psiTurk = PsiTurk(myUniqueId, myAdServerLoc);
 			// trial dists
-		  	var trialDists = [[0.4, 0.1, 0.1, 0.4], [0.4, 0.1, 0.2, 0.3],[0.4, 0.1, 0.25, 0.25],[0.4, 0.1, 0.3, 0.2], [0.4, 0.1, 0.4, 0.1],
-		  					[0.1, 0.4, 0.4, 0.1], [0.2, 0.3, 0.4, 0.1], [0.25, 0.25, 0.4, 0.1], [0.3, 0.2, 0.4, 0.1], [0.1, 0.4, 0.1, 0.4],
-		  					[0.4, 0.1, 0.1, 0.4], [0.1, 0.4, 0.3, 0.2], [0.1, 0.4, 0.25, 0.25], [0.1, 0.4, 0.2, 0.3], [0.4, 0.1, 0.4, 0.1],
-		  					[0.1, 0.4, 0.4, 0.1], [0.3, 0.2, 0.1, 0.4], [0.25, 0.25, 0.1, 0.4], [0.2, 0.3, 0.1, 0.4], [0.1, 0.4, 0.1, 0.4]];
+		  	var trialDists = [[0.4, 0.1, 0.1, 0.4], [0.4, 0.1, 0.4, 0.1],[0.1, 0.4, 0.4, 0.1], [0.1, 0.4, 0.1, 0.4]];
 		  	config_testing = {
 		  	  condition: myCondition,
 		      blockSize: 20,
-		      nBlocks: 2,
+		      nBlocks: 4,
 		      contextDur: 500,
 		      iti: 500,
 		      retentionInterval: 2000,
@@ -81,7 +78,7 @@
 		  config = {
 		  	  condition: myCondition,
 		      blockSize: 40,
-		      nBlocks: 6,
+		      nBlocks: 10,
 		      contextDur: 500,
 		      iti: 500,
 		      retentionInterval: 2000,
@@ -93,7 +90,7 @@
 		      nTestAttempts: 50,
 		      testStreakToPass: 10,
 		      minPayment: 1,
-		      maxBonus: 3.6,
+		      maxBonus: 4,
 		      correctPoints: 15,
 		      inaccPenalty: 0,
 		      penaltyPerSecond: 0,

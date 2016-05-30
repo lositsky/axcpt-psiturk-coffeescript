@@ -417,18 +417,32 @@
     };
 
     Experiment.prototype.shuffleTrials = function() {
-      var i, k, l, len, ref, tc, td, trialCounts;
-      trialCounts = (function() {
-        var k, len, ref, results;
-        ref = this.config.trialDist;
-        results = [];
-        for (k = 0, len = ref.length; k < len; k++) {
-          td = ref[k];
-          results.push(td * this.config.blockSize);
-        }
-        return results;
-      }).call(this);
+      var i, k, l, len, ref, tc, td, trialCounts, trialDistFinal;
       console.log(this.config.condition);
+      if (this.state.blockId < this.config.nBlocks / 2) {
+        trialCounts = (function() {
+          var k, len, ref, results;
+          ref = this.config.trialDist;
+          results = [];
+          for (k = 0, len = ref.length; k < len; k++) {
+            td = ref[k];
+            results.push(td * this.config.blockSize);
+          }
+          return results;
+        }).call(this);
+      } else {
+        trialDistFinal = [this.config.trialDist[0], this.config.trialDist[1], 0.25, 0.25];
+        trialCounts = (function() {
+          var k, len, results;
+          results = [];
+          for (k = 0, len = trialDistFinal.length; k < len; k++) {
+            td = trialDistFinal[k];
+            results.push(td * this.config.blockSize);
+          }
+          return results;
+        }).call(this);
+      }
+      console.log(trialCounts);
       this.trialOrderBlock = [];
       for (i = k = 0, len = trialCounts.length; k < len; i = ++k) {
         tc = trialCounts[i];
@@ -437,11 +451,13 @@
         }
       }
       this.trialOrderBlock.shuffle();
+      console.log(this.trialOrderBlock);
       if (this.state.blockId === 0) {
-        return this.trialOrder = this.trialOrderBlock;
+        this.trialOrder = this.trialOrderBlock;
       } else {
-        return this.trialOrder = this.trialOrder.concat(this.trialOrderBlock);
+        this.trialOrder = this.trialOrder.concat(this.trialOrderBlock);
       }
+      return console.log(this.trialOrder);
     };
 
     Experiment.prototype.handleSpacebar = function(event) {
