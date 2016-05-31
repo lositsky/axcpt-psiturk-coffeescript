@@ -1,5 +1,5 @@
 [HIT Configuration]
-title = Context-Based Decision Making Task (up to $3.60 bonus)
+title = Context-Based Decision Making Task (up to $4.00 bonus)
 description = Respond to letters/symbols based on rules
 amt_keywords = Perception, Psychology
 lifetime = 24
