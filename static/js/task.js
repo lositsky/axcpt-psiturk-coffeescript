@@ -417,7 +417,7 @@
     };
 
     Experiment.prototype.shuffleTrials = function() {
-      var i, k, l, len, ref, tc, td, trialCounts, trialDistFinal;
+      var i, k, l, len, len1, len2, m, n, o, p, ref, ref1, ref2, tc, td, trialCounts, trialDistFinal, trialOrderBlock1, trialOrderBlock2;
       console.log(this.config.condition);
       if (this.state.blockId < this.config.nBlocks / 2) {
         trialCounts = (function() {
@@ -426,7 +426,7 @@
           results = [];
           for (k = 0, len = ref.length; k < len; k++) {
             td = ref[k];
-            results.push(td * this.config.blockSize);
+            results.push(td * this.config.blockSizeFreq);
           }
           return results;
         }).call(this);
@@ -437,20 +437,40 @@
           results = [];
           for (k = 0, len = trialDistFinal.length; k < len; k++) {
             td = trialDistFinal[k];
-            results.push(td * this.config.blockSize);
+            results.push(td * this.config.blockSizeFreq);
           }
           return results;
         }).call(this);
       }
       console.log(trialCounts);
-      this.trialOrderBlock = [];
-      for (i = k = 0, len = trialCounts.length; k < len; i = ++k) {
-        tc = trialCounts[i];
-        for (l = 1, ref = tc; 1 <= ref ? l <= ref : l >= ref; 1 <= ref ? l++ : l--) {
-          this.trialOrderBlock = this.trialOrderBlock.concat(i);
+      if (this.config.blockSize === 2 * this.config.blockSizeFreq) {
+        trialOrderBlock1 = [];
+        for (i = k = 0, len = trialCounts.length; k < len; i = ++k) {
+          tc = trialCounts[i];
+          for (l = 1, ref = tc; 1 <= ref ? l <= ref : l >= ref; 1 <= ref ? l++ : l--) {
+            trialOrderBlock1 = trialOrderBlock1.concat(i);
+          }
         }
+        trialOrderBlock1.shuffle();
+        trialOrderBlock2 = [];
+        for (i = m = 0, len1 = trialCounts.length; m < len1; i = ++m) {
+          tc = trialCounts[i];
+          for (n = 1, ref1 = tc; 1 <= ref1 ? n <= ref1 : n >= ref1; 1 <= ref1 ? n++ : n--) {
+            trialOrderBlock2 = trialOrderBlock2.concat(i);
+          }
+        }
+        trialOrderBlock2.shuffle();
+        this.trialOrderBlock = trialOrderBlock1.concat(trialOrderBlock2);
+      } else if (this.config.blockSize === this.config.blockSizeFreq) {
+        this.trialOrderBlock = [];
+        for (i = o = 0, len2 = trialCounts.length; o < len2; i = ++o) {
+          tc = trialCounts[i];
+          for (p = 1, ref2 = tc; 1 <= ref2 ? p <= ref2 : p >= ref2; 1 <= ref2 ? p++ : p--) {
+            this.trialOrderBlock = this.trialOrderBlock.concat(i);
+          }
+        }
+        this.trialOrderBlock.shuffle();
       }
-      this.trialOrderBlock.shuffle();
       console.log(this.trialOrderBlock);
       if (this.state.blockId === 0) {
         this.trialOrder = this.trialOrderBlock;
