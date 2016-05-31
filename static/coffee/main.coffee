@@ -27,18 +27,28 @@ class Experiment
 
 
   shuffleTrials: ->
-    trialCounts = (td * @config.blockSize for td in @config.trialDist)    
     console.log @config.condition
+    trialCounts = (td * @config.blockSizeFreq for td in @config.trialDist)    
+    console.log trialCounts
     # http://stackoverflow.com/questions/5685449/nested-array-comprehensions-in-coffeescript
-    @trialOrderBlock = [] 
-    @trialOrderBlock = @trialOrderBlock.concat i for [1..tc] for tc, i in trialCounts
-    @trialOrderBlock.shuffle()
-    # console.log @trialOrderBlock
+    if @config.blockSize is 2*@config.blockSizeFreq
+      trialOrderBlock1 = [] 
+      trialOrderBlock1 = trialOrderBlock1.concat i for [1..tc] for tc, i in trialCounts
+      trialOrderBlock1.shuffle()
+      trialOrderBlock2 = [] 
+      trialOrderBlock2 = trialOrderBlock2.concat i for [1..tc] for tc, i in trialCounts
+      trialOrderBlock2.shuffle()
+      @trialOrderBlock = trialOrderBlock1.concat trialOrderBlock2
+    else if @config.blockSize is @config.blockSizeFreq
+      @trialOrderBlock = [] 
+      @trialOrderBlock = @trialOrderBlock.concat i for [1..tc] for tc, i in trialCounts
+      @trialOrderBlock.shuffle()
+    console.log @trialOrderBlock
     if (@state.blockId is 0)
       @trialOrder = @trialOrderBlock
     else
       @trialOrder = @trialOrder.concat @trialOrderBlock
-    # console.log @trialOrder  
+    console.log @trialOrder  
     
 
   handleSpacebar: (event) =>
