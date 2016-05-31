@@ -707,7 +707,7 @@
           return this.testTrialTypes[this.testTrialOrder[0]].run();
         case 8:
           r.clearScreen();
-          r.renderText("Congratulations! You have learned the rules.\n You will now see " + this.config.nBlocks + " blocks with " + this.config.blockSize + " trials in each block.\n\n You will get " + this.config.correctPoints + " points for a correct response.\n You will receive $1 for each " + this.config.pointsPerDollar + " points.\n\n You have up to " + this.config.deadline + " seconds to respond on each trial,\n but if you respond fast, you can finish the HIT in less than 18 minutes.\n If you respond slowly, you can finish the HIT in 30 minutes.\n\n Both your speed and accuracy are important to us:\n Please try to respond as fast as possible while still being accurate.\n\n", "black", 0, -260);
+          r.renderText("Congratulations! You have learned the rules.\n You will now see " + this.config.nBlocks + " blocks with " + this.config.blockSize + " trials in each block.\n\n You will get " + this.config.correctPoints + " points for a correct response.\n You will receive $1 for each " + this.config.pointsPerDollar + " points.\n\n You have up to " + this.config.deadline + " seconds to respond on each trial,\n but if you respond fast, you can finish the HIT in less than 35 minutes.\n If you respond slowly, you can finish the HIT in about 50 minutes.\n\n Both your speed and accuracy are important to us:\n Please try to respond as fast as possible while still being accurate.\n\n", "black", 0, -260);
           setTimeout((function() {
             return r.renderText("Press the spacebar to continue.", "black", 0, 200);
           }), this.config.spacebarTimeout);

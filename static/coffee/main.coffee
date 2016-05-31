@@ -258,8 +258,8 @@ class Experiment
                       You will get #{@config.correctPoints} points for a correct response.\n
                       You will receive $1 for each #{@config.pointsPerDollar} points.\n\n
                       You have up to #{@config.deadline} seconds to respond on each trial,\n
-                      but if you respond fast, you can finish the HIT in less than 18 minutes.\n
-                      If you respond slowly, you can finish the HIT in 30 minutes.\n\n
+                      but if you respond fast, you can finish the HIT in less than 35 minutes.\n
+                      If you respond slowly, you can finish the HIT in about 50 minutes.\n\n
                       Both your speed and accuracy are important to us:\n
                       Please try to respond as fast as possible while still being accurate.\n\n", "black", 0, -260                    
         setTimeout (-> r.renderText "Press the spacebar to continue.", "black", 0, 200 ), @config.spacebarTimeout
