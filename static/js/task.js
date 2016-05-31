@@ -659,12 +659,12 @@
           return this.praxTrialTypes[this.aPrax[0]].run();
         case 4:
           r.clearScreen();
-          r.renderText("Here is the second rule:\n\n followed by         -->  press the '4' key\n", "black", 0, -240);
-          r.renderText(" followed by         -->  press the '8' key\n\n Now you will get a chance to practice.", "black", 0, -115);
+          r.renderText("Here is the second rule:\n\n followed by         -->  press the '8' key\n", "black", 0, -240);
+          r.renderText(" followed by         -->  press the '4' key\n\n Now you will get a chance to practice.", "black", 0, -115);
           this.renderStimInstruct(this.stimuli[3], "blue", -275, -165);
-          this.renderStimInstruct(this.stimuli[2], "blue", -55, -165);
+          this.renderStimInstruct(this.stimuli[1], "blue", -55, -165);
           this.renderStimInstruct(this.stimuli[3], "blue", -275, -115);
-          this.renderStimInstruct(this.stimuli[1], "blue", -55, -115);
+          this.renderStimInstruct(this.stimuli[2], "blue", -55, -115);
           setTimeout((function() {
             return r.renderText("Press the spacebar to continue.", "black", 0, 20);
           }), this.config.spacebarTimeout);
@@ -707,7 +707,7 @@
           r.clearScreen();
           r.renderText("As a reminder, here are the rules:", "black", 0, -240);
           this.renderRules(0, -200);
-          r.renderText("As soon as you press 4 or 8, \n we will give feedback about your speed and accuracy\n and the game will continue to the next trial automatically\n (you do NOT need to press spacebar during the block).\n", "black", 0, 0);
+          r.renderText("As soon as you press a key, \n we will give feedback about your speed and accuracy\n and the game will continue to the next trial automatically\n (you do NOT need to press spacebar during the block).\n", "black", 0, 0);
           setTimeout((function() {
             return r.renderText("Press the spacebar to continue.", "black", 0, 180);
           }), this.config.spacebarTimeout);
@@ -729,18 +729,18 @@
       if (yoffset == null) {
         yoffset = 0;
       }
-      r.renderText("followed by         -->  press the '4' key\n", "black", xoffset, 0 + yoffset);
+      r.renderText("followed by         -->  press the '8' key\n", "black", xoffset, 0 + yoffset);
       r.renderText("followed by         -->  press the '4' key\n", "black", xoffset, 50 + yoffset);
-      r.renderText("followed by         -->  press the '8' key\n", "black", xoffset, 100 + yoffset);
+      r.renderText("followed by         -->  press the '4' key\n", "black", xoffset, 100 + yoffset);
       r.renderText("followed by         -->  press the '8' key", "black", xoffset, 150 + yoffset);
-      this.renderStimInstruct(e.stimuli[3], "blue", -270 + xoffset, 0 + yoffset);
+      this.renderStimInstruct(e.stimuli[0], "blue", -270 + xoffset, 0 + yoffset);
       this.renderStimInstruct(e.stimuli[2], "blue", -50 + xoffset, 0 + yoffset);
       this.renderStimInstruct(e.stimuli[0], "blue", -270 + xoffset, 50 + yoffset);
       this.renderStimInstruct(e.stimuli[1], "blue", -50 + xoffset, 50 + yoffset);
       this.renderStimInstruct(e.stimuli[3], "blue", -270 + xoffset, 100 + yoffset);
-      this.renderStimInstruct(e.stimuli[1], "blue", -50 + xoffset, 100 + yoffset);
-      this.renderStimInstruct(e.stimuli[0], "blue", -270 + xoffset, 150 + yoffset);
-      return this.renderStimInstruct(e.stimuli[2], "blue", -50 + xoffset, 150 + yoffset);
+      this.renderStimInstruct(e.stimuli[2], "blue", -50 + xoffset, 100 + yoffset);
+      this.renderStimInstruct(e.stimuli[3], "blue", -270 + xoffset, 150 + yoffset);
+      return this.renderStimInstruct(e.stimuli[1], "blue", -50 + xoffset, 150 + yoffset);
     };
 
     Experiment.prototype.createTrialTypes = function() {

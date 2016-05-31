@@ -204,10 +204,10 @@ class Experiment
                       followed by         -->  press the '4' key\n", "black", 0, -240
         r.renderText " followed by         -->  press the '8' key\n\n
                       Now you will get a chance to practice.", "black", 0, -115
-        @renderStimInstruct @stimuli[0], "blue", -275, -165
-        @renderStimInstruct @stimuli[1], "blue", -55, -165
-        @renderStimInstruct @stimuli[0], "blue", -275, -115
-        @renderStimInstruct @stimuli[2], "blue", -55, -115
+        @renderStimInstruct @stimuli[0], "blue", -275, -165 # A 
+        @renderStimInstruct @stimuli[1], "blue", -55, -165 # X
+        @renderStimInstruct @stimuli[0], "blue", -275, -115 # A
+        @renderStimInstruct @stimuli[2], "blue", -55, -115 # Y
         setTimeout (-> r.renderText "Press the spacebar to continue.", "black", 0, 20 ), @config.spacebarTimeout
         setTimeout (=> addEventListener "keydown", @handleSpacebar), @config.spacebarTimeout
       when 3
@@ -216,13 +216,13 @@ class Experiment
       when 4
         r.clearScreen()
         r.renderText "Here is the second rule:\n\n
-                      followed by         -->  press the '4' key\n","black", 0, -240
-        r.renderText " followed by         -->  press the '8' key\n\n
+                      followed by         -->  press the '8' key\n","black", 0, -240
+        r.renderText " followed by         -->  press the '4' key\n\n
                       Now you will get a chance to practice.", "black", 0, -115
-        @renderStimInstruct @stimuli[3], "blue", -275, -165
-        @renderStimInstruct @stimuli[2], "blue", -55, -165
-        @renderStimInstruct @stimuli[3], "blue", -275, -115
-        @renderStimInstruct @stimuli[1], "blue", -55, -115
+        @renderStimInstruct @stimuli[3], "blue", -275, -165 # B
+        @renderStimInstruct @stimuli[1], "blue", -55, -165 # X
+        @renderStimInstruct @stimuli[3], "blue", -275, -115 # B 
+        @renderStimInstruct @stimuli[2], "blue", -55, -115 # Y
         # @renderStimInstruct @stimuli[3], "blue", -250, -165
         # @renderStimInstruct @stimuli[2], "blue", -50, -165
         # @renderStimInstruct @stimuli[3], "blue", -250, -130
@@ -263,7 +263,7 @@ class Experiment
         r.clearScreen()
         r.renderText "As a reminder, here are the rules:", "black", 0, -240 
         @renderRules(0, -200)
-        r.renderText  "As soon as you press 4 or 8, \n
+        r.renderText  "As soon as you press a key, \n
                       we will give feedback about your speed and accuracy\n
                       and the game will continue to the next trial automatically\n
                       (you do NOT need to press spacebar during the block).\n", "black", 0, 0
@@ -274,18 +274,18 @@ class Experiment
         @startExperiment()
 
   renderRules : (xoffset=0, yoffset=0)->
-    r.renderText "followed by         -->  press the '4' key\n", "black", xoffset, 0+yoffset
+    r.renderText "followed by         -->  press the '8' key\n", "black", xoffset, 0+yoffset
     r.renderText "followed by         -->  press the '4' key\n", "black", xoffset, 50+yoffset
-    r.renderText "followed by         -->  press the '8' key\n", "black", xoffset, 100+yoffset
+    r.renderText "followed by         -->  press the '4' key\n", "black", xoffset, 100+yoffset
     r.renderText "followed by         -->  press the '8' key", "black", xoffset, 150+yoffset
-    @renderStimInstruct e.stimuli[3], "blue", -270+xoffset, 0+yoffset # B
+    @renderStimInstruct e.stimuli[0], "blue", -270+xoffset, 0+yoffset # A
     @renderStimInstruct e.stimuli[2], "blue", -50+xoffset, 0+yoffset # Y
     @renderStimInstruct e.stimuli[0], "blue", -270+xoffset, 50+yoffset # A
     @renderStimInstruct e.stimuli[1], "blue", -50+xoffset, 50+yoffset # X
     @renderStimInstruct e.stimuli[3], "blue", -270+xoffset, 100+yoffset # B
-    @renderStimInstruct e.stimuli[1], "blue", -50+xoffset, 100+yoffset # X
-    @renderStimInstruct e.stimuli[0], "blue", -270+xoffset, 150+yoffset # A
-    @renderStimInstruct e.stimuli[2], "blue", -50+xoffset, 150+yoffset # Y
+    @renderStimInstruct e.stimuli[2], "blue", -50+xoffset, 100+yoffset # Y
+    @renderStimInstruct e.stimuli[3], "blue", -270+xoffset, 150+yoffset # B
+    @renderStimInstruct e.stimuli[1], "blue", -50+xoffset, 150+yoffset # X
 # 0, 35, 70, 105
 
 
