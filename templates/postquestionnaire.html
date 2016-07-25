@@ -9,7 +9,8 @@
     }
     </style>
 </head>
-<body class="consent"><script type="text/javascript">
+<body class="consent">
+<script type="text/javascript">
   keydownfun = function() {}; // Should unbind keys.
 
   error_message = "<h1>Oops!</h1><p>Something went wrong submitting your HIT. This might happen if you lose your internet connection. Press the button to resubmit.</p><button id='resubmit'>Resubmit</button>";
@@ -64,139 +65,183 @@ error: prompt_resubmit
     }); 
 
 
-    </script>
+</script>
 
-    <div id="container-questionnaire">
-        <h1>Task Complete</h1>
+<div id="container-questionnaire">
+    <h1>Task Complete</h1>
 
-        <hr>
+    <hr>
 
-        <p>You are finished!  Thank you for your contribution to science. You will be eligible for full payment once you answer the following questions.</p>
+    <p>You are finished!  Thank you for your contribution to science. You will be eligible for full payment once you answer the following questions.</p>
 
-        <div class="instructions well">
+    <div class="instructions well">
 
-            <form id="postquiz" action="debrief" method="post">
+        <form id="postquiz" action="debrief" method="post">
 
-                <!-- beginning of a question -->
-                <div class="row question">
-                    <div class="col-md-8">
-                     For statistical purposes, please select your age bracket
-                 </div>
-                 <div class="col-md-4">
-                    <select id="age" name="age">
-                        <option value="-1" selected="">(Select One)</option>
-                        <option value="75">50+</option>
-                        <option value="45">40 to 49</option>
-                        <option value="35">30 to 39</option>
-                        <option value="24">18 to 29</option>
-                        <option value="0">1-17</option>
-                    </select>
-                </div>
-            </div>
-            <!-- end of a question -->
-
-            <!-- beginning of a question -->
-            <div class="row question">
-                <div class="col-md-8">
-                 For statistical purposes, please select your gender
+        <!-- beginning of Age question -->
+        <div class="row question">
+            <div class="col-md-8">
+             For statistical purposes, please select your age bracket
              </div>
              <div class="col-md-4">
-                <select id="gender" name="gender">
+                <select id="age" name="age">
                     <option value="-1" selected="">(Select One)</option>
-                    <option value="other">Other</option>
-                    <option value="female">Female</option>
-                    <option value="male">Male</option>
+                    <option value="75">50+</option>
+                    <option value="45">40 to 49</option>
+                    <option value="35">30 to 39</option>
+                    <option value="24">18 to 29</option>
+                    <option value="0">1-17</option>
                 </select>
             </div>
         </div>
-        <!-- end of a question -->
+        <!-- end of Age question -->
 
+        <!-- beginning of Gender question -->
+        <div class="row question">
+            <div class="col-md-8">
+             For statistical purposes, please select your gender
+         </div>
+         <div class="col-md-4">
+            <select id="gender" name="gender">
+                <option value="-1" selected="">(Select One)</option>
+                <option value="other">Other</option>
+                <option value="female">Female</option>
+                <option value="male">Male</option>
+            </select>
+        </div>
+        </div>
+        <!-- end of Gender question -->
+
+        <!-- Did you notice trial frequencies question -->
+        <p>While you were playing the game, did you notice that some combinations of stimuli appeared more frequently than others?   <br>
+        <select id="noticeFreqs" name="noticeFreqs">
+        <option value="yes">Yes</option>
+        <option value="no">No</option>
+        <option value="-1" selected="">(Select One)</option>
+        </select>
+        </p>
+
+        <!-- Did you notice change in frequencies question -->
+        <p>Did you notice that the frequencies changed throughout the experiment?
         <br>
-        Can you estimate how often each combination of stimuli appeared? <br>
-        Please enter the frequency of each combination as a percentage between 0% and 100%.<br>
-        The four percentages should sum to 100%. 
+        <select id="noticeChange" name="noticeChange">
+        <option value="yes">Yes</option>
+        <option value="no">No</option> 
+        <option value="-1" selected="">(Select One)</option>
+        </select>
+        </p>
+
+        <!-- Frequency at START of experiment question -->
+        <br>
+        Can you estimate how often each combination of stimuli appeared <b>at the beginning</b> of the game? <br>
+        <i>Please enter the frequency of each combination as a percentage between 0% and 100%.<br>
+        The four percentages should sum to 100%. </i>
         <br>
         <table><tr><th>Combination&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th>Frequency (0%-100%)</th></tr>
-            <tr><td rowspan="4">
-                <canvas id ="questionCanvas" width="150" height="200">
-                <script type="text/javascript">
-            r.attachToCanvas("questionCanvas"); 
-            e.renderStimInstruct(e.stimuli[0], "blue", -25, -75); 
-            e.renderStimInstruct(e.stimuli[1], "blue", 25, -75);
-            e.renderStimInstruct(e.stimuli[0], "blue", -25, -25); 
-            e.renderStimInstruct(e.stimuli[2], "blue", 25, -25);
-            e.renderStimInstruct(e.stimuli[3], "blue", -25, 25); 
-            e.renderStimInstruct(e.stimuli[1], "blue", 25, 25);
-            e.renderStimInstruct(e.stimuli[3], "blue", -25, 75); 
-            e.renderStimInstruct(e.stimuli[2], "blue", 25, 75);
-            </script></canvas></td>
-            <td><textarea rows="1" cols="5" name="stim01freq" id="stim01freq"></textarea></td></tr>
-                    <tr><td><textarea rows="1" cols="5" name="stim02freq" id="stim02freq"></textarea></td></tr>
-                        <tr><td><textarea rows="1" cols="5" name="stim31freq" id="stim31freq"></textarea></td></tr>
-                            <tr><td><textarea rows="1" cols="5" name="stim32freq" id="stim32freq"></textarea></td></tr>                
-                        </table>
+        <tr><td rowspan="4">
+        <canvas id ="questionCanvas" width="150" height="200">
+        <script type="text/javascript">
+        r.attachToCanvas("questionCanvas"); 
+        e.renderStimInstruct(e.stimuli[0], "blue", -25, -75); 
+        e.renderStimInstruct(e.stimuli[1], "blue", 25, -75);
+        e.renderStimInstruct(e.stimuli[0], "blue", -25, -25); 
+        e.renderStimInstruct(e.stimuli[2], "blue", 25, -25);
+        e.renderStimInstruct(e.stimuli[3], "blue", -25, 25); 
+        e.renderStimInstruct(e.stimuli[1], "blue", 25, 25);
+        e.renderStimInstruct(e.stimuli[3], "blue", -25, 75); 
+        e.renderStimInstruct(e.stimuli[2], "blue", 25, 75);
+        </script></canvas></td>
+            <td><textarea rows="1" cols="5" name="stim01freqBegin" id="stim01freqBegin"></textarea></td></tr>
+        <tr><td><textarea rows="1" cols="5" name="stim02freqBegin" id="stim02freqBegin"></textarea></td></tr>
+        <tr><td><textarea rows="1" cols="5" name="stim31freqBegin" id="stim31freqBegin"></textarea></td></tr>
+        <tr><td><textarea rows="1" cols="5" name="stim32freqBegin" id="stim32freqBegin"></textarea></td></tr>                ^M
+        </table>
 
+        <!-- Frequency at END of experiment question -->
+        <br>
+        Can you estimate how often each combination of stimuli appeared <b>at the end</b> of the game? <br>
+        <i>Please enter the frequency of each combination as a percentage between 0% and 100%.<br>
+        The four percentages should sum to 100%. </i>
+        <br>
+        <table><tr><th>Combination&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th><th>Frequency (0%-100%)</th></tr>
+        <tr><td rowspan="4">
+        <canvas id ="questionCanvas2" width="150" height="200">
+        <script type="text/javascript">
+        r.attachToCanvas("questionCanvas2"); 
+        e.renderStimInstruct(e.stimuli[0], "blue", -25, -75); 
+        e.renderStimInstruct(e.stimuli[1], "blue", 25, -75);
+        e.renderStimInstruct(e.stimuli[0], "blue", -25, -25); 
+        e.renderStimInstruct(e.stimuli[2], "blue", 25, -25);
+        e.renderStimInstruct(e.stimuli[3], "blue", -25, 25); 
+        e.renderStimInstruct(e.stimuli[1], "blue", 25, 25);
+        e.renderStimInstruct(e.stimuli[3], "blue", -25, 75); 
+        e.renderStimInstruct(e.stimuli[2], "blue", 25, 75);
+        </script></canvas></td>
+            <td><textarea rows="1" cols="5" name="stim01freqEnd" id="stim01freqEnd"></textarea></td></tr>
+        <tr><td><textarea rows="1" cols="5" name="stim02freqEnd" id="stim02freqEnd"></textarea></td></tr>
+        <tr><td><textarea rows="1" cols="5" name="stim31freqEnd" id="stim31freqEnd"></textarea></td></tr>
+        <tr><td><textarea rows="1" cols="5" name="stim32freqEnd" id="stim32freqEnd"></textarea></td></tr>                ^M
+        </table>
 
-                    <!-- beginning of a question -->
-                    <p> 
-                        The first stimulus in the pair can be considered as a rule to use on the second stimulus. (For example, if "A" appears first, press 4 for "X" and 8 for "Y". If "B" appears first, press 8 for "X" and 4 for "Y".) Which of the following best describes your strategy?
-                        <br>
-                        <select id="proactiveness" name="proactiveness">
-                            <option value="proactive">I prepared the rule as soon as the first stimulus appeared</option>
-                            <option value="reactive">I waited for the second stimulus to appear before thinking about the rule</option>
-                            <option value="-1" selected="">(Select One)</option>
-                        </select>
-                    </p>
-                    <!-- end of a question -->
+        <!-- beginning of Proactiveness question -->
+        <p> 
+            The first stimulus in the pair can be considered as a rule to use on the second stimulus. (For example, if "A" appears first, press 4 for "X" and 8 for "Y". If "B" appears first, press 8 for "X" and 4 for "Y".) Which of the following best describes your strategy?
+            <br>
+            <select id="proactiveness" name="proactiveness">
+                <option value="proactive">I prepared the rule as soon as the first stimulus appeared</option>
+                <option value="reactive">I waited for the second stimulus to appear before thinking about the rule</option>
+                <option value="-1" selected="">(Select One)</option>
+            </select>
+        </p>
+        <!-- end of Proactiveness question -->
 
+        <!-- beginning of Response Prior question -->
+        <p>We are also interested in how you prepared your response (which button to press).<br>
+            <select id="responsePrior" name="responsePrior">
+                <option value="onePrior">I had one default response (either 4 or 8) for all trials.</option>
+                <option value="twoPriors">I picked a different default button depending on the first stimulus (for example, 4 for "A" and 8 for "B").</option>
+                <option value="noPrior">I did not prepare a response until I had seen both stimuli.</option>
+                <option value="-1" SELECTED>(Select One)</option>
+            </select>
+        </p>
+        <!-- end of Response Prior question -->
 
-                    <!-- beginning of a question -->
-                    <p>We are also interested in how you prepared your response (which button to press).<br>
-                        <select id="responsePrior" name="responsePrior">
-                            <option value="onePrior">I had one default response (either 4 or 8) for all trials.</option>
-                            <option value="twoPriors">I picked a different default button depending on the first stimulus (for example, 4 for "A" and 8 for "B").</option>
-                            <option value="noPrior">I did not prepare a response until I had seen both stimuli.</option>
-                            <option value="-1" SELECTED>(Select One)</option>
-                        </select>
-                    </p>
-                    <!-- end of a question -->
+        <!-- beginning of Memory question -->
+        <p>Finally, we are interested in how you thought about the first stimulus during the delay between the first and second stimuli. 
+            <br>
+            <select id="memory" name="memory">
+                <option value="-1" SELECTED>(Select One)</option>
+                <option value="visual">I tried to keep the image of the first stimulus in my mind</option>
+                <option value="verbal">I repeated it to myself verbally</option>
+                <option value="motor">I used my fingers to put pressure on different buttons depending on which stimulus appeared first</option>
+                <option value="motor">I only thought about it once the second stimulus appeared</option>
+            </select>
+        </p>
+        <!-- end of Memory question -->
+        <br>
+        If you are not satisfied with any answers you selected above, or if you would like to tell us anything else about your strategy, please feel free to do so in this text box. Any details you provide will help us to better understand how you performed and experienced this task.<br/>
+        <textarea rows="10" cols="80" name="comments" id="comments"></textarea>
 
-                    <!-- beginning of a question -->
-                    <p>Finally, we are interested in how you thought about the first stimulus during the delay between the first and second stimuli. 
-                        <br>
-                        <select id="memory" name="memory">
-                            <option value="-1" SELECTED>(Select One)</option>
-                            <option value="visual">I tried to keep the image of the first stimulus in my mind</option>
-                            <option value="verbal">I repeated it to myself verbally</option>
-                            <option value="motor">I used my fingers to put pressure on different buttons depending on which stimulus appeared first</option>
-                            <option value="motor">I only thought about it once the second stimulus appeared</option>
-                        </select>
-                    </p>
-                    <!-- end of a question -->
-                    <br>
-                    If you are not satisfied with any answers you selected above, or if you would like to tell us anything else about your strategy, please feel free to do so in this text box. Any details you provide will help us to better understand how you performed and experienced this task.<br/>
-                    <textarea rows="10" cols="80" name="comments" id="comments"></textarea>
-                </form>
-            </div>
+        </form>
+        </div> <!-- End of div class="instructions well" -->
 
-            <hr>
+        <hr>
 
-            <div class="instructionsnav">
-                <div class="row">
-                    <div class="col-xs-2">
-                    </div>
-                    <div class="col-xs-7">
-                    </div>
-                    <div class="col-xs-3">
-                        <!-- onClick="javascript: psiTurk.showPage('debriefing.html');"-->
-                        <button type="button" id="next" value="next" class="btn btn-primary btn-lg continue">
-                            Continue <span class="glyphicon glyphicon-arrow-right"></span>
-                        </button>
-                    </div>
+        <div class="instructionsnav">
+            <div class="row">
+                <div class="col-xs-2">
+                </div>
+                <div class="col-xs-7">
+                </div>
+                <div class="col-xs-3">
+                    <!-- onClick="javascript: psiTurk.showPage('debriefing.html');"-->
+                    <button type="button" id="next" value="next" class="btn btn-primary btn-lg continue">
+                        Continue <span class="glyphicon glyphicon-arrow-right"></span>
+                    </button>
                 </div>
             </div>
+        </div> 
 
-
-        </div>
-    </body>
-    </html>
+</div> <!--End of div id="container-questionnaire" -->
+</body>
+</html>
