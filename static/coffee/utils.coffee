@@ -32,7 +32,7 @@ class Renderer
     @drawingContext.font = "#{@config.instructionFontSize}px #{@config.fontFamily}"
     @drawingContext.textAlign = "center"
 
-  renderText: (text, color="black", shiftx=0, shifty=0, size) ->
+  renderText: (text, color="white", shiftx=0, shifty=0, size) ->
     size ?= e.config.instructionFontSize
     @drawingContext.font = "#{size}px #{@config.fontFamily} "
     @fillTextMultiLine(@drawingContext, text, @canvas.width/2+shiftx, @canvas.height/2+shifty, color)
@@ -45,7 +45,15 @@ class Renderer
       ctx.fillText(line, x, y)
       y += lineHeight
 
-  renderCircle: (x, y, radius, fill=true, color="black") ->
+  renderFractals: (shiftX = 0, shiftY = 0) ->
+    fractal = new Image();
+    fractal.src = "https://upload.wikimedia.org/wikipedia/commons/f/fc/Mandel_zoom_08_satellite_antenna.jpg";
+    centerx = @canvas.width/2 + shiftX
+    centery = @canvas.height/2 + shiftY
+    fractal.onload = =>
+      @drawingContext.drawImage(fractal, centerx, centery)
+
+  renderCircle: (x, y, radius, fill=true, color="white") ->
     @drawingContext.strokeStyle = 'color'
     @drawingContext.beginPath()
     @drawingContext.arc(x, y, radius, 0, 2 * Math.PI, false)
@@ -57,7 +65,7 @@ class Renderer
     # @drawingContext.strokeStyle = 'color'
     @drawingContext.stroke() 
 
-  renderDots: (stim, color="black", shiftX = 0, shiftY = 0, radius=10, sep=20) ->
+  renderDots: (stim, color="white", shiftX = 0, shiftY = 0, radius=10, sep=20) ->
     centerx = @canvas.width/2 + shiftX
     centery = @canvas.height/2 + shiftY - sep # shift things up to make these appear exactly where the letters do
     # for 2 x 2 dots
