@@ -25,7 +25,7 @@ class Trial
       @recordTrial() 
       @showFeedback()
 
-  constructor:(@context, @target, @renderFunc, @contextItem, @targetItem, @keys, @cresp, @contextColor="black", @targetColor="black")-> 
+  constructor:(@context, @target, @renderFunc, @contextItem, @targetItem, @keys, @cresp, @contextColor="white", @targetColor="white")-> 
 
   computeBonus: => 
     @bonus = if @acc is 1 then e.config.correctPoints else -e.config.inaccPenalty
@@ -46,8 +46,8 @@ class Trial
   showFeedback: =>
     r.clearScreen()
     if @acc is 1 
-        @renderFunc @targetItem, "green"
-        r.renderText "Speed: #{ExtMath.round(@rt, 0)} ms", "green", 0, 100
+        @renderFunc @targetItem, "SpringGreen"
+        r.renderText "Speed: #{ExtMath.round(@rt, 0)} ms", "SpringGreen", 0, 100
     else 
         @renderFunc @targetItem, "red"
         r.renderText "Speed: #{ExtMath.round(@rt,0)} ms", "red", 0, 100
@@ -79,11 +79,11 @@ class PracticeTrial extends Trial
   showFeedback: =>
     r.clearScreen()
     if @acc is 1 
-      r.renderText "Correct!", "green"
+      r.renderText "Correct!", "SpringGreen"
     else 
-      r.renderText "Incorrect!", "red"
+      r.renderText "Error!", "red"
     setTimeout (-> e.doNext() ), e.config.feedbackTimePractice
-#    setTimeout (-> r.renderText "Press the spacebar to continue.", "black", 0, 180 ), e.config.spacebarTimeout
+#    setTimeout (-> r.renderText "Press the spacebar to continue.", "white", 0, 180 ), e.config.spacebarTimeout
 #    setTimeout (=> addEventListener "keydown", @handleSpacebar), e.config.spacebarTimeout
 
 class TestTrial extends PracticeTrial
@@ -95,14 +95,14 @@ class TestTrial extends PracticeTrial
     r.clearScreen()
     if @acc is 1
       e.state.currentStreak = e.state.currentStreak + 1
-      r.renderText "Correct!", "green", 0, -100
-      r.renderText "\nStreak: #{e.state.currentStreak}!\n#{e.config.nTestAttempts-e.state.testId-1} attempts left\n", "black", 0, -60
+      r.renderText "Correct!", "SpringGreen", 0, -100
+      r.renderText "\nStreak: #{e.state.currentStreak}!\n#{e.config.nTestAttempts-e.state.testId-1} attempts left\n", "white", 0, -60
     else
       e.state.currentStreak = 0
-      r.renderText "Incorrect!","red", 0, -180
+      r.renderText "Error!","red", 0, -180
       r.renderText "\n(#{e.config.nTestAttempts-e.state.testId-1} attempts left)\n
-                    As a reminder, here are the rules: ", "black", 0, -165
+                    As a reminder, here are the rules: ", "white", 0, -165
       e.renderRules(0, -50)
 #    setTimeout (-> e.doNext() ), e.config.feedbackTimePractice
-    setTimeout (-> r.renderText "Press the spacebar to continue.", "black", 0, 180 ), e.config.spacebarTimeout
+    setTimeout (-> r.renderText "Press the spacebar to continue.", "white", 0, 180 ), e.config.spacebarTimeout
     setTimeout (=> addEventListener "keydown", @handleSpacebar), e.config.spacebarTimeout

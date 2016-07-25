@@ -2,12 +2,12 @@
 body {
     padding:0px;
     margin: 0px;
-    background-color: white;
+    background-color: black;
     color: black;
     font-weight: 300; 
     font-size: 13pt;
 }
-
+body.consent {background-color:white;}
 
 /* text styling */
 strong {

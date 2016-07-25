@@ -176,10 +176,10 @@ class Experiment
     # otherwise do feedback and next trial
     feedbackText = "Done with block #{@state.blockId} / #{@config.nBlocks}: \n \n
     You earned #{ExtMath.round(@state.blockBonus, 2)} / #{@config.correctPoints*@config.blockSize} bonus points!\n"
-    r.renderText feedbackText, "black", 0, -200
+    r.renderText feedbackText, "white", 0, -200
     @state.blockBonus = 0
     @updateBonusAndSave()
-    setTimeout (-> r.renderText "Press the spacebar when you are ready to continue.", "black", 0, 0 ), @config.blockRestDur*1000
+    setTimeout (-> r.renderText "Press the spacebar when you are ready to continue.", "white", 0, 0 ), @config.blockRestDur*1000
     setTimeout (=> addEventListener "keydown", @handleSpacebarBlockEnd), @config.blockRestDur*1000
     
 
@@ -189,8 +189,8 @@ class Experiment
         r.renderText "Welcome to the experiment!\n
                       In this experiment, you will press keys based on pairs of #{@stimsName}.\n
                       The two #{@stimsName} in each pair will be separated by a blank screen.\n
-                      There will be one correct key for each pair of #{@stimsName}.\n\n", "black", 0, -200
-        setTimeout (-> r.renderText "Press the spacebar to continue.", "black", 0, 0 ), @config.spacebarTimeout
+                      There will be one correct key for each pair of #{@stimsName}.\n\n", "white", 0, -200
+        setTimeout (-> r.renderText "Press the spacebar to continue.", "white", 0, 0 ), @config.spacebarTimeout
         setTimeout (=> addEventListener "keydown", @handleSpacebar), @config.spacebarTimeout
       when 1
         r.clearScreen()
@@ -199,20 +199,20 @@ class Experiment
                       If you fail, the HIT will end and you will earn the minimum payment ($#{@config.minPayment}).\n
                       If you succeed, you will compete for an additional bonus (up to $#{@config.maxBonus}).\n
                       You response keys will be '4' and '8'. \n
-                      You should put your left index finger on '4' and right index finger on '8' now. \n\n", "black", 0, -200
-        setTimeout (-> r.renderText "Press the spacebar to continue.", "black", 0, 100 ), @config.spacebarTimeout
+                      You should put your left index finger on '4' and right index finger on '8' now. \n\n", "white", 0, -200
+        setTimeout (-> r.renderText "Press the spacebar to continue.", "white", 0, 100 ), @config.spacebarTimeout
         setTimeout (=> addEventListener "keydown", @handleSpacebar), @config.spacebarTimeout
       when 2
         r.clearScreen()
         r.renderText "Here is the first rule:\n\n
-                      followed by         -->  press the '4' key\n", "black", 0, -240
+                      followed by         -->  press the '4' key\n", "white", 0, -240
         r.renderText " followed by         -->  press the '8' key\n\n
-                      Now you will get a chance to practice.", "black", 0, -115
-        @renderStimInstruct @stimuli[0], "blue", -275, -165 # A 
-        @renderStimInstruct @stimuli[1], "blue", -55, -165 # X
-        @renderStimInstruct @stimuli[0], "blue", -275, -115 # A
-        @renderStimInstruct @stimuli[2], "blue", -55, -115 # Y
-        setTimeout (-> r.renderText "Press the spacebar to continue.", "black", 0, 20 ), @config.spacebarTimeout
+                      Now you will get a chance to practice.", "white", 0, -115
+        @renderStimInstruct @stimuli[0], "#ffffcc", -275, -165 # A 
+        @renderStimInstruct @stimuli[1], "#b3d9ff", -55, -165 # X
+        @renderStimInstruct @stimuli[0], "#ffffcc", -275, -115 # A
+        @renderStimInstruct @stimuli[2], "#b3d9ff", -55, -115 # Y
+        setTimeout (-> r.renderText "Press the spacebar to continue.", "white", 0, 20 ), @config.spacebarTimeout
         setTimeout (=> addEventListener "keydown", @handleSpacebar), @config.spacebarTimeout
       when 3
         @state.phase = "APractice"
@@ -220,18 +220,18 @@ class Experiment
       when 4
         r.clearScreen()
         r.renderText "Here is the second rule:\n\n
-                      followed by         -->  press the '8' key\n","black", 0, -240
+                      followed by         -->  press the '8' key\n","white", 0, -240
         r.renderText " followed by         -->  press the '4' key\n\n
-                      Now you will get a chance to practice.", "black", 0, -115
-        @renderStimInstruct @stimuli[3], "blue", -275, -165 # B
-        @renderStimInstruct @stimuli[1], "blue", -55, -165 # X
-        @renderStimInstruct @stimuli[3], "blue", -275, -115 # B 
-        @renderStimInstruct @stimuli[2], "blue", -55, -115 # Y
+                      Now you will get a chance to practice.", "white", 0, -115
+        @renderStimInstruct @stimuli[3], "#ffffcc", -275, -165 # B
+        @renderStimInstruct @stimuli[1], "#b3d9ff", -55, -165 # X
+        @renderStimInstruct @stimuli[3], "#ffffcc", -275, -115 # B 
+        @renderStimInstruct @stimuli[2], "#b3d9ff", -55, -115 # Y
         # @renderStimInstruct @stimuli[3], "blue", -250, -165
         # @renderStimInstruct @stimuli[2], "blue", -50, -165
         # @renderStimInstruct @stimuli[3], "blue", -250, -130
         # @renderStimInstruct @stimuli[1], "blue", -50, -130
-        setTimeout (-> r.renderText "Press the spacebar to continue.", "black", 0, 20 ), @config.spacebarTimeout
+        setTimeout (-> r.renderText "Press the spacebar to continue.", "white", 0, 20 ), @config.spacebarTimeout
         setTimeout (=> addEventListener "keydown", @handleSpacebar), @config.spacebarTimeout
       when 5
         @state.phase = "BPractice"
@@ -243,9 +243,9 @@ class Experiment
                       You will have #{@config.nTestAttempts} trials total. If you get #{@config.testStreakToPass} correct in a row, you can compete\n
                       for a bonus of up to $#{@config.maxBonus}. If you get to #{@config.nTestAttempts} without getting #{@config.testStreakToPass} in a row, \n
                       the HIT will end and you will get the minimum payment ($#{@config.minPayment}).\n\n
-                      As a reminder, here are the rules: \n", "black", 0, -270 # -215
+                      As a reminder, here are the rules: \n", "white", 0, -270 # -215
         @renderRules(0, 0) # 45
-        setTimeout (-> r.renderText "Press the spacebar to continue.", "black", 0, 215 ), @config.spacebarTimeout
+        setTimeout (-> r.renderText "Press the spacebar to continue.", "white", 0, 215 ), @config.spacebarTimeout
         setTimeout (=> addEventListener "keydown", @handleSpacebar), @config.spacebarTimeout
       when 7
         r.clearScreen()
@@ -261,55 +261,55 @@ class Experiment
                       but if you respond fast, you can finish the HIT in less than 35 minutes.\n
                       If you respond slowly, you can finish the HIT in about 50 minutes.\n\n
                       Both your speed and accuracy are important to us:\n
-                      Please try to respond as fast as possible while still being accurate.\n\n", "black", 0, -260                    
-        setTimeout (-> r.renderText "Press the spacebar to continue.", "black", 0, 200 ), @config.spacebarTimeout
+                      Please try to respond as fast as possible while still being accurate.\n\n", "white", 0, -260                    
+        setTimeout (-> r.renderText "Press the spacebar to continue.", "white", 0, 200 ), @config.spacebarTimeout
         setTimeout (=> addEventListener "keydown", @handleSpacebar), @config.spacebarTimeout
       when 9
         r.clearScreen()
-        r.renderText "As a reminder, here are the rules:", "black", 0, -240 
+        r.renderText "As a reminder, here are the rules:", "white", 0, -240 
         @renderRules(0, -200)
         r.renderText  "As soon as you press a key, \n
                       we will give feedback about your speed and accuracy\n
                       and the game will continue to the next trial automatically\n
-                      (you do NOT need to press spacebar during the block).\n", "black", 0, 0
-        setTimeout (-> r.renderText "Press the spacebar to continue.", "black", 0, 180 ), @config.spacebarTimeout
+                      (you do NOT need to press spacebar during the block).\n", "white", 0, 0
+        setTimeout (-> r.renderText "Press the spacebar to continue.", "white", 0, 180 ), @config.spacebarTimeout
         setTimeout (=> addEventListener "keydown", @handleSpacebar), @config.spacebarTimeout
       when 10
         r.clearScreen()
         @startExperiment()
 
   renderRules : (xoffset=0, yoffset=0)->
-    r.renderText "followed by         -->  press the '8' key\n", "black", xoffset, 0+yoffset
-    r.renderText "followed by         -->  press the '4' key\n", "black", xoffset, 50+yoffset
-    r.renderText "followed by         -->  press the '4' key\n", "black", xoffset, 100+yoffset
-    r.renderText "followed by         -->  press the '8' key", "black", xoffset, 150+yoffset
-    @renderStimInstruct e.stimuli[0], "blue", -270+xoffset, 0+yoffset # A
-    @renderStimInstruct e.stimuli[2], "blue", -50+xoffset, 0+yoffset # Y
-    @renderStimInstruct e.stimuli[0], "blue", -270+xoffset, 50+yoffset # A
-    @renderStimInstruct e.stimuli[1], "blue", -50+xoffset, 50+yoffset # X
-    @renderStimInstruct e.stimuli[3], "blue", -270+xoffset, 100+yoffset # B
-    @renderStimInstruct e.stimuli[2], "blue", -50+xoffset, 100+yoffset # Y
-    @renderStimInstruct e.stimuli[3], "blue", -270+xoffset, 150+yoffset # B
-    @renderStimInstruct e.stimuli[1], "blue", -50+xoffset, 150+yoffset # X
+    r.renderText "followed by         -->  press the '8' key\n", "white", xoffset, 0+yoffset
+    r.renderText "followed by         -->  press the '4' key\n", "white", xoffset, 50+yoffset
+    r.renderText "followed by         -->  press the '4' key\n", "white", xoffset, 100+yoffset
+    r.renderText "followed by         -->  press the '8' key", "white", xoffset, 150+yoffset
+    @renderStimInstruct e.stimuli[0], "#ffffcc", -270+xoffset, 0+yoffset # A
+    @renderStimInstruct e.stimuli[2], "#b3d9ff", -50+xoffset, 0+yoffset # Y
+    @renderStimInstruct e.stimuli[0], "#ffffcc", -270+xoffset, 50+yoffset # A
+    @renderStimInstruct e.stimuli[1], "#b3d9ff", -50+xoffset, 50+yoffset # X
+    @renderStimInstruct e.stimuli[3], "#ffffcc", -270+xoffset, 100+yoffset # B
+    @renderStimInstruct e.stimuli[2], "#b3d9ff", -50+xoffset, 100+yoffset # Y
+    @renderStimInstruct e.stimuli[3], "#ffffcc", -270+xoffset, 150+yoffset # B
+    @renderStimInstruct e.stimuli[1], "#b3d9ff", -50+xoffset, 150+yoffset # X
 # 0, 35, 70, 105
 
 
   createTrialTypes: -> 
     @stimuli.shuffle() 
-    @trialTypes = [new Trial("A", "X", @renderStimTrial, @stimuli[0], @stimuli[1], [52,56], 52, "blue", "blue"), 
-                  new Trial("A", "Y", @renderStimTrial, @stimuli[0], @stimuli[2], [52,56], 56, "blue", "blue"), 
-                  new Trial("B", "X", @renderStimTrial, @stimuli[3], @stimuli[1], [52,56], 56, "blue", "blue"),
-                  new Trial("B", "Y", @renderStimTrial, @stimuli[3], @stimuli[2], [52,56], 52, "blue", "blue")]
+    @trialTypes = [new Trial("A", "X", @renderStimTrial, @stimuli[0], @stimuli[1], [52,56], 52, "#ffffcc", "#b3d9ff"), 
+                  new Trial("A", "Y", @renderStimTrial, @stimuli[0], @stimuli[2], [52,56], 56, "#ffffcc", "#b3d9ff"), 
+                  new Trial("B", "X", @renderStimTrial, @stimuli[3], @stimuli[1], [52,56], 56, "#ffffcc", "#b3d9ff"),
+                  new Trial("B", "Y", @renderStimTrial, @stimuli[3], @stimuli[2], [52,56], 52, "#ffffcc", "#b3d9ff")]
 
-    @praxTrialTypes = [new PracticeTrial("A", "X", @renderStimTrial, @stimuli[0], @stimuli[1], [52,56], 52, "blue", "blue"), 
-                  new PracticeTrial("A", "Y", @renderStimTrial, @stimuli[0], @stimuli[2], [52,56], 56, "blue", "blue"), 
-                  new PracticeTrial("B", "X", @renderStimTrial, @stimuli[3], @stimuli[1], [52,56], 56, "blue", "blue"),
-                  new PracticeTrial("B", "Y", @renderStimTrial, @stimuli[3], @stimuli[2], [52,56], 52, "blue", "blue")]
+    @praxTrialTypes = [new PracticeTrial("A", "X", @renderStimTrial, @stimuli[0], @stimuli[1], [52,56], 52, "#ffffcc", "#b3d9ff"), 
+                  new PracticeTrial("A", "Y", @renderStimTrial, @stimuli[0], @stimuli[2], [52,56], 56, "#ffffcc", "#b3d9ff"), 
+                  new PracticeTrial("B", "X", @renderStimTrial, @stimuli[3], @stimuli[1], [52,56], 56, "#ffffcc", "#b3d9ff"),
+                  new PracticeTrial("B", "Y", @renderStimTrial, @stimuli[3], @stimuli[2], [52,56], 52, "#ffffcc", "#b3d9ff")]
 
-    @testTrialTypes = [new TestTrial("A", "X", @renderStimTrial, @stimuli[0], @stimuli[1], [52,56], 52, "blue", "blue"), 
-                  new TestTrial("A", "Y", @renderStimTrial, @stimuli[0], @stimuli[2], [52,56], 56, "blue", "blue"), 
-                  new TestTrial("B", "X", @renderStimTrial, @stimuli[3], @stimuli[1], [52,56], 56, "blue", "blue"),
-                  new TestTrial("B", "Y", @renderStimTrial, @stimuli[3], @stimuli[2], [52,56], 52, "blue", "blue")]
+    @testTrialTypes = [new TestTrial("A", "X", @renderStimTrial, @stimuli[0], @stimuli[1], [52,56], 52, "#ffffcc", "#b3d9ff"), 
+                  new TestTrial("A", "Y", @renderStimTrial, @stimuli[0], @stimuli[2], [52,56], 56, "#ffffcc", "#b3d9ff"), 
+                  new TestTrial("B", "X", @renderStimTrial, @stimuli[3], @stimuli[1], [52,56], 56, "#ffffcc", "#b3d9ff"),
+                  new TestTrial("B", "Y", @renderStimTrial, @stimuli[3], @stimuli[2], [52,56], 52, "#ffffcc", "#b3d9ff")]
 
 
     praxCounts = (@config.nPraxTrials/2 for i in [1..2]) # uniform distr of AX and AY or practice, BX and BY also
@@ -337,11 +337,20 @@ class LettersExperiment extends Experiment
   # @stimuli = ["A","X","B","Y"] # eventually this should be the whole alphabet
   stimuli: ["B","C","D","F","G","H","J","K","L","M","N","P","Q","R","S","T","V","W","X","Y","Z"]
 
-  renderStimInstruct : (stim, colour="black", xoffset=0, yoffset=0)->
+  renderStimInstruct : (stim, colour="white", xoffset=0, yoffset=0)->
     r.renderText stim, colour, xoffset, yoffset
   
-  renderStimTrial : (stim, colour="black", xoffset=0, yoffset=0)=>
+  renderStimTrial : (stim, colour="white", xoffset=0, yoffset=0)=>
     r.renderText stim, colour, xoffset, yoffset, e.config.taskFontSize
+
+class FractalsExperiment extends Experiment
+  stimsName : "fractals"
+  stimuli: []
+
+  renderStimInstruct : (xoffset=0, yoffset=0)->
+    r.renderFractals xoffset, yoffset
+  renderStimTrial : (xoffset=0, yoffset=0)->
+    r.renderFractals xoffset, yoffset
 
 class DotsExperiment extends Experiment  
   stimsName : "dots"
@@ -355,14 +364,15 @@ class DotsExperiment extends Experiment
   # stimuli: [[0,1,0,0,1,0,0,1,0], [0,0,0,1,1,1,0,0,0], [1,0,1,1,0,1,1,0,1], [1,1,1,0,0,0,1,1,1]]
   # the above is too easy, unless two of these are always cues and two of them always probes
 
-  renderStimInstruct : (stim, colour="black", xoffset=0, yoffset=0)->
+  renderStimInstruct : (stim, colour="white", xoffset=0, yoffset=0)->
     r.renderDots stim, colour, xoffset, yoffset, 5, 7
   # r.renderDots stim, colour, xoffset, yoffset, 5, 13
-  renderStimTrial : (stim, colour="black", xoffset=0, yoffset=0)->
+  renderStimTrial : (stim, colour="white", xoffset=0, yoffset=0)->
     r.renderDots stim, colour, xoffset, yoffset, 15, 20
   # r.renderDots stim, colour, xoffset, yoffset, 15, 35
 
-# window.Experiment = LettersExperiment
-window.Experiment = DotsExperiment
+window.Experiment = LettersExperiment
+# window.Experiment = DotsExperiment
+# window.Experiment = FractalsExperiment
 window.Renderer = Renderer
 
