@@ -194,7 +194,7 @@ class Experiment
                       Then, we will test that you learned the rules.\n
                       If you fail, the HIT will end and you will earn the minimum payment ($#{@config.minPayment}).\n
                       If you succeed, you will compete for an additional bonus (up to $#{@config.maxBonus}).\n
-                      You response keys will be '4' and '8'. \n
+                      You response keys will be '4' and '8'. \n\n
                       You should put your left index finger on '4' and right index finger on '8' now. \n\n", "white", 0, -200
         setTimeout (-> r.renderText "Press the spacebar to continue.", "white", 0, 100 ), @config.spacebarTimeout
         setTimeout (=> addEventListener "keydown", @handleSpacebar), @config.spacebarTimeout

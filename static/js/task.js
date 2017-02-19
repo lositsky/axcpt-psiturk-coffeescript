@@ -648,7 +648,7 @@
           })(this)), this.config.spacebarTimeout);
         case 1:
           r.clearScreen();
-          r.renderText("First, you will learn the rules mapping " + this.stimsName + " to keys.\n Then, we will test that you learned the rules.\n If you fail, the HIT will end and you will earn the minimum payment ($" + this.config.minPayment + ").\n If you succeed, you will compete for an additional bonus (up to $" + this.config.maxBonus + ").\n You response keys will be '4' and '8'. \n You should put your left index finger on '4' and right index finger on '8' now. \n\n", "white", 0, -200);
+          r.renderText("First, you will learn the rules mapping " + this.stimsName + " to keys.\n Then, we will test that you learned the rules.\n If you fail, the HIT will end and you will earn the minimum payment ($" + this.config.minPayment + ").\n If you succeed, you will compete for an additional bonus (up to $" + this.config.maxBonus + ").\n You response keys will be '4' and '8'. \n\n You should put your left index finger on '4' and right index finger on '8' now. \n\n", "white", 0, -200);
           setTimeout((function() {
             return r.renderText("Press the spacebar to continue.", "white", 0, 100);
           }), this.config.spacebarTimeout);
