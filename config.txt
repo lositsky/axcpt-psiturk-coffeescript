@@ -28,7 +28,7 @@ threads = auto
 
 [Task Parameters]
 experiment_code_version = 1.0
-num_conds = 20
+num_conds = 28
 num_counters = 1
 
 [Shell Parameters]
