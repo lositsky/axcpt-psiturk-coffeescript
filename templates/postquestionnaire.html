@@ -3,13 +3,16 @@
 <head>
     <title>Post-Experiment Questionnaire</title>
     <style>
-    table, td, th {
+    body { background-color:white; }
+    table, th, tr {
         padding:5,
         border-spacing: 5;
     }
+    td {color: red; vertical-align: top;}
+    textarea { vertical-align: top; color:black;}​
     </style>
 </head>
-<body class="consent"><script type="text/javascript">
+<body><script type="text/javascript">
   keydownfun = function() {}; // Should unbind keys.
 
   error_message = "<h1>Oops!</h1><p>Something went wrong submitting your HIT. This might happen if you lose your internet connection. Press the button to resubmit.</p><button id='resubmit'>Resubmit</button>";
@@ -130,11 +133,11 @@ error: prompt_resubmit
             e.renderStimInstruct(e.stimuli[3], "blue", -25, 75); 
             e.renderStimInstruct(e.stimuli[2], "blue", 25, 75);
             </script></canvas></td>
-            <td><textarea rows="1" cols="5" name="stim01freq" id="stim01freq"></textarea></td></tr>
-                    <tr><td><textarea rows="1" cols="5" name="stim02freq" id="stim02freq"></textarea></td></tr>
-                        <tr><td><textarea rows="1" cols="5" name="stim31freq" id="stim31freq"></textarea></td></tr>
-                            <tr><td><textarea rows="1" cols="5" name="stim32freq" id="stim32freq"></textarea></td></tr>                
-                        </table>
+            <td><textarea rows="1" cols="5" name="stim01freq" id="stim01freq"></textarea> &nbsp*Required field</td></tr>
+            <tr><td><textarea rows="1" cols="5" name="stim02freq" id="stim02freq"></textarea> &nbsp*Required field</td></tr>
+            <tr><td><textarea rows="1" cols="5" name="stim31freq" id="stim31freq"></textarea> &nbsp*Required field</td></tr>
+            <tr><td><textarea rows="1" cols="5" name="stim32freq" id="stim32freq"></textarea> &nbsp*Required field</td></tr>
+        </table>
 
                     <!-- beginning of a question -->
                     <p> 
